@@ -1,2 +1,11 @@
 @import "bootstrap";
+
+/*
+	This has to go before the bootstrap-responsive import,
+	or the padding shows up above the fixed-top navbar.
+*/
+body{
+	padding-top: 60px;
+}
+
 @import "bootstrap-responsive";
