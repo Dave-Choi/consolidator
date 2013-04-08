@@ -1,4 +1,10 @@
 Consolidator::Application.routes.draw do
+  resources :stakes
+
+
+  resources :transfers
+
+
   resources :things
 
 
