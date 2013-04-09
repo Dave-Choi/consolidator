@@ -7,10 +7,9 @@
 				<span class="icon-bar"></span>
 			</a>
 
-			<a class="brand" href="#">Consolidator</a>
+			<%= link_to "Consolidator", root_path, class: "brand" %>
 			<div class="nav-collapse collapse">
 				<ul class="nav">
-					<li><%= link_to "Home", root_path %></li>
 					<% if user_signed_in? %>
 						<li><%= link_to "Things", things_path %></li>
 						<li><%= link_to "Stakes", stakes_path %></li>
