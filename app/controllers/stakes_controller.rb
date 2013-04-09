@@ -4,7 +4,7 @@ class StakesController < ApplicationController
   # GET /stakes
   # GET /stakes.json
   def index
-    @stakes = Stake.all
+    @stakes = current_user.stakes.all
 
     respond_to do |format|
       format.html # index.html.erb
