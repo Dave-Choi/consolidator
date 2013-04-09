@@ -10,5 +10,8 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
   has_many :things, :through => :transfers
+  has_many :transfers
+
   has_many :things, :through => :stakes
+  has_many :stakes
 end
