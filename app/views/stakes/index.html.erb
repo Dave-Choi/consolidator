@@ -1,21 +1,28 @@
-<h1>Listing stakes</h1>
+<h1>Your stakes</h1>
 
-<table>
-  <tr>
-    <th>Amount</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Thing</th>
+      <th>Amount</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @stakes.each do |stake| %>
+      <tr>
+        <td><%= stake.thing.name %></td>
+        <td><%= stake.amount %></td>
+        <td><%= link_to 'Show', stake %></td>
+        <td><%= link_to 'Edit', edit_stake_path(stake) %></td>
+        <td><%= link_to 'Destroy', stake, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
 
-<% @stakes.each do |stake| %>
-  <tr>
-    <td><%= stake.amount %></td>
-    <td><%= link_to 'Show', stake %></td>
-    <td><%= link_to 'Edit', edit_stake_path(stake) %></td>
-    <td><%= link_to 'Destroy', stake, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+
 </table>
 
 <br />
