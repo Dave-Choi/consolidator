@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130409010533) do
+ActiveRecord::Schema.define(:version => 20130409100119) do
 
   create_table "stakes", :force => true do |t|
     t.decimal  "amount"
@@ -24,20 +24,11 @@ ActiveRecord::Schema.define(:version => 20130409010533) do
   add_index "stakes", ["thing_id"], :name => "index_stakes_on_thing_id"
   add_index "stakes", ["user_id"], :name => "index_stakes_on_user_id"
 
-  create_table "stuffs", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "things", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "user_id"
   end
-
-  add_index "things", ["user_id"], :name => "index_things_on_user_id"
 
   create_table "transfers", :force => true do |t|
     t.datetime "datetime"
