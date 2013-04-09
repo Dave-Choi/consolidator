@@ -11,15 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130409003416) do
+ActiveRecord::Schema.define(:version => 20130409010533) do
 
   create_table "stakes", :force => true do |t|
     t.decimal  "amount"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "user_id"
+    t.integer  "thing_id"
   end
 
+  add_index "stakes", ["thing_id"], :name => "index_stakes_on_thing_id"
   add_index "stakes", ["user_id"], :name => "index_stakes_on_user_id"
 
   create_table "stuffs", :force => true do |t|
@@ -43,9 +45,11 @@ ActiveRecord::Schema.define(:version => 20130409003416) do
     t.datetime "updated_at",   :null => false
     t.integer  "from_user_id"
     t.integer  "to_user_id"
+    t.integer  "thing_id"
   end
 
   add_index "transfers", ["from_user_id"], :name => "index_transfers_on_from_user_id"
+  add_index "transfers", ["thing_id"], :name => "index_transfers_on_thing_id"
   add_index "transfers", ["to_user_id"], :name => "index_transfers_on_to_user_id"
 
   create_table "users", :force => true do |t|
