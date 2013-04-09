@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <%= "You have #{@stake.amount} stake in #{@stake.thing.name}"  %>
+  <%= "You have #{@stake.amount} of #{@stake.total_stakes()} stakes in #{@stake.thing.name} (#{@stake.percent_ownership()})"  %>
 </p>
 
 <%= link_to 'Edit', edit_stake_path(@stake) %> |

@@ -32,4 +32,16 @@ class Stake < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :thing
+
+  def total_stakes()
+    all_stakes = self.thing.stakes
+    
+    all_stakes.reduce(0) do |result, stake|
+        result + stake.amount
+    end
+  end
+
+  def percent_ownership()
+    return sprintf('%.2f%%', 100 * self.amount / self.total_stakes())
+  end
 end
