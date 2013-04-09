@@ -1,4 +1,7 @@
 Consolidator::Application.routes.draw do
+  resources :friendships
+
+
   resources :stakes
 
 
