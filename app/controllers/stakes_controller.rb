@@ -1,4 +1,6 @@
 class StakesController < ApplicationController
+  before_filter :authenticate_user!
+
   # GET /stakes
   # GET /stakes.json
   def index
