@@ -6,8 +6,6 @@
     possession of the Thing.
 =end
 
-end
-
 class Transfer < ActiveRecord::Base
   attr_accessible :datetime
 
