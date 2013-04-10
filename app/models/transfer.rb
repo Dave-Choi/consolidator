@@ -1,3 +1,13 @@
+=begin
+    Transfers are dated records of transfers of a thing between Users.
+    
+    If Users are diligent about recording transfers, presumably the
+    receiver of the most recent transfer should be the person in
+    possession of the Thing.
+=end
+
+end
+
 class Transfer < ActiveRecord::Base
   attr_accessible :datetime
 

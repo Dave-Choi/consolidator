@@ -1,3 +1,10 @@
+=begin
+    A Thing is any owned thing that may transfer between Users.
+
+    The system maintains information about its transfer history, and
+    ownership, which may be between multiple people.
+=end
+
 class Thing < ActiveRecord::Base
   attr_accessible :name
 
