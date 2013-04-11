@@ -2,7 +2,7 @@ class FriendshipsController < ApplicationController
   # GET /friendships
   # GET /friendships.json
   def index
-    @friendships = Friendship.all
+    @friendships = current_user.friendships
 
     respond_to do |format|
       format.html # index.html.erb
@@ -40,7 +40,9 @@ class FriendshipsController < ApplicationController
   # POST /friendships
   # POST /friendships.json
   def create
-    @friendship = Friendship.new(params[:friendship])
+    @friendship = Friendship.new()
+    @friendship.user_id = current_user.id
+    @friendship.friend_id = params[:friendship][:friend_id]
 
     respond_to do |format|
       if @friendship.save

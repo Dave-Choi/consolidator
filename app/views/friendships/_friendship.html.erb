@@ -1,0 +1,6 @@
+<div><%= friendship.friend.name + " ( " + friendship.friend.email + " )" %>
+<% unless(friendship.is_mutual()) %>
+    pending confirmation
+<% end %>
+
+</div>

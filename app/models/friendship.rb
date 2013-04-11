@@ -18,4 +18,16 @@
 class Friendship < ActiveRecord::Base
   belongs_to :user
   belongs_to :friend, :class_name => "User"
+
+  def reciprocal()
+    return Friendship.where(
+        :user_id => self.friend_id,
+        :friend_id => self.user_id
+    )
+  end
+
+  def is_mutual()
+    # TODO: Check if this is safe if there's a query error or something
+    return self.reciprocal() != []
+  end
 end

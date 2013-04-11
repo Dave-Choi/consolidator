@@ -1,25 +1,33 @@
-<h1>Listing friendships</h1>
+<%
+  # There are three categories of friendships that we want to see:
 
-<table>
-  <tr>
-    <th>User</th>
-    <th>Friend</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+  # Inbound only:
+  #   Another user has requested that you be friends, but you haven't confirmed yet.  This requires action on the current user's part, and should be given the highest priority in terms of placement.
 
-<% @friendships.each do |friendship| %>
-  <tr>
-    <td><%= friendship.user_id %></td>
-    <td><%= friendship.friend_id %></td>
-    <td><%= link_to 'Show', friendship %></td>
-    <td><%= link_to 'Edit', edit_friendship_path(friendship) %></td>
-    <td><%= link_to 'Destroy', friendship, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+  inbound_user_ids = Friendship.select(:user_id).where(:friend_id => current_user.id).map{|rec| rec.user_id}
 
-<br />
+  # Outbound only:
+  #   You've initiated a request to be friends, but it hasn't been confirmed by the other user yet.
+
+  outbound_user_ids = Friendship.where(:user_id => current_user.id).map{|rec| rec.friend_id}
+
+  # Mutual:
+  #   There's a reciprocal friendship record in the DB
+  #   i.e.
+  #     Friendship.where(:user_id => A, :friend_id => B)
+  #       and
+  #     Friendship.where(:user_id => B, :friend_id => A)
+  #     both exist.
+  #   These are trusted Users with which you can share information about
+  #   collections.
+
+  mutual_user_ids = inbound_user_ids & outbound_user_ids
+%>
+
+<h1>Listing friends</h1>
+  <%= inbound_user_ids %>
+  <%= outbound_user_ids %>
+  <%= mutual_user_ids %>
+  <%= render :partial => "friendship", :collection => @friendships %>
 
 <%= link_to 'New Friendship', new_friendship_path %>
