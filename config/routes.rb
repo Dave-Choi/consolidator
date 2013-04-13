@@ -7,6 +7,8 @@ Consolidator::Application.routes.draw do
 
   resources :things
 
+  resources :friends, :controller => 'Friendships'
+
 
   devise_for :users
 

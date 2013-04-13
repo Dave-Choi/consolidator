@@ -14,4 +14,25 @@ class User < ActiveRecord::Base
 
   has_many :things, :through => :stakes
   has_many :stakes
+
+  include Amistad::FriendModel
+
+  def not_friends()
+    # returns the set of Users that aren't accepted (on either end) friends, or self
+    return User.where("id not in (?)", self.friends.pluck(:id).push(self.id))
+  end
+
+  def pending_invited_by?(user)
+    # checks if a current user received invitation from given user
+    friendship = find_any_friendship_with(user)
+    return false if friendship.nil?
+    return friendship.friendable_id == user.id && friendship.pending == true
+  end
+
+  def pending_invited?(user)
+    # checks if a current user invited given user
+    friendship = find_any_friendship_with(user)
+    return false if friendship.nil?
+    return friendship.friend_id == user.id && friendship.pending == true
+  end
 end

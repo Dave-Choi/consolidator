@@ -1,0 +1,25 @@
+<%= link_to "Find Friends", new_friend_path %>
+
+<% if @incoming_requests.length != 0 %>
+    <h2>Requests</h2>
+    <% @incoming_requests.each do |friend| %>
+        <%= render :partial => "friend_brief", :locals => {:friend => friend, :status => "incoming_request"} %>
+    <% end %>
+<% end %>
+
+<% if @outgoing_requests.length != 0 %>
+    <h2>Awaiting Response</h2>
+    <% @outgoing_requests.each do |friend| %>
+        <%= render :partial => "friend_brief", :locals => {:friend => friend, :status => "outgoing_request"} %>
+    <% end %>
+<% end %>
+
+
+<h2>Your Friends</h2>
+<% if @friends.length != 0 %>
+    <% @friends.each do |friend| %>
+        <%= render :partial => "friend_brief", :locals => {:friend => friend, :status => "friends"} %>
+    <% end %>
+<% else %>
+    You have no friends. :(
+<% end %>

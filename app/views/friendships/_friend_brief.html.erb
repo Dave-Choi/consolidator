@@ -1,0 +1,25 @@
+<div class="friendBrief">
+    <div>
+        <%= friend.name %>
+    </div>
+
+    <div>
+        <%= friend.common_friends_with(current_user).length %> mutual friends
+    </div>
+
+    <div class="status">
+        <% if( friend.friend_with?(current_user) ) %>
+            <%= link_to "Remove Friend", friend_path(friend), :method => "delete", class: "btn btn-danger", data: { confirm: "Are you sure you want to remove #{friend.name} as a friend?" } %>
+
+        <% elsif( friend.pending_invited_by?(current_user) ) %>
+            <a class="btn btn-success disabled">Friend request sent</a>
+
+        <% elsif( friend.pending_invited?(current_user) ) %>
+            <%= link_to "Confirm Friend", friend_path(friend), :method => "put", class: "btn btn-success" %>
+
+        <% else %>
+            <%= link_to "Add Friend", friends_path(:id => friend.id), :method => "post", class: "btn btn-primary" %>
+
+        <% end %>
+    </div>
+</div>

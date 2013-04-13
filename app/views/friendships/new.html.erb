@@ -1,0 +1,8 @@
+<% if @available_friends.length != 0 %>
+    <h2>Not Friends</h2>
+    <% @available_friends.each do |friend| %>
+        <%= render :partial => "friend_brief", :locals => {:friend => friend, :status => "not_friends"} %>
+    <% end %>
+<% else %>
+    You're friends with everybody in the system, somehow.
+<% end %>
