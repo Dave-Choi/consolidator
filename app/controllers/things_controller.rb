@@ -34,7 +34,7 @@ class ThingsController < ApplicationController
 
   # GET /things/1/edit
   def edit
-    @thing = Thing.find(params[:id])
+    @thing = current_user.things.find(params[:id])
   end
 
   # POST /things
@@ -56,7 +56,7 @@ class ThingsController < ApplicationController
   # PUT /things/1
   # PUT /things/1.json
   def update
-    @thing = Thing.find(params[:id])
+    @thing = current_user.things.find(params[:id])
 
     respond_to do |format|
       if @thing.update_attributes(params[:thing])
@@ -72,7 +72,7 @@ class ThingsController < ApplicationController
   # DELETE /things/1
   # DELETE /things/1.json
   def destroy
-    @thing = Thing.find(params[:id])
+    @thing = current_user.things.find(params[:id])
     @thing.destroy
 
     respond_to do |format|
