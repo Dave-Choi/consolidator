@@ -8,6 +8,9 @@
 class Thing < ActiveRecord::Base
   attr_accessible :name
 
+  # This may not be the best way to handle this.  
+  # With an index on transfer datetimes, it's probably enough to just have
+  # an "added_by" key, and then just track the holder via the most recent transfer
   belongs_to :holder, :class_name => "User", :foreign_key => "held_by"
 
   has_many :stakes
