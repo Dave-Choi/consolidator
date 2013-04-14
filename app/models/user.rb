@@ -23,14 +23,14 @@ class User < ActiveRecord::Base
   end
 
   def pending_invited_by?(user)
-    # checks if a current user received invitation from given user
+    # checks if a current user has a pending invitation from given user
     friendship = find_any_friendship_with(user)
     return false if friendship.nil?
     return friendship.friendable_id == user.id && friendship.pending == true
   end
 
   def pending_invited?(user)
-    # checks if a current user invited given user
+    # checks if a current user invited given user, pending response
     friendship = find_any_friendship_with(user)
     return false if friendship.nil?
     return friendship.friend_id == user.id && friendship.pending == true
