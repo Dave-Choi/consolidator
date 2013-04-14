@@ -2,7 +2,7 @@ class ThingsController < ApplicationController
   # GET /things
   # GET /things.json
   def index
-    @things = Thing.all
+    @things = current_user.things.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +13,7 @@ class ThingsController < ApplicationController
   # GET /things/1
   # GET /things/1.json
   def show
-    @thing = Thing.find(params[:id])
+    @thing = current_user.things.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
