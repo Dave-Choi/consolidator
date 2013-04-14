@@ -5,7 +5,11 @@ Consolidator::Application.routes.draw do
   resources :transfers
 
 
-  resources :things
+  resources :things do
+    collection do
+      get 'lent'
+    end
+  end
 
   resources :friends, :controller => 'Friendships'
 

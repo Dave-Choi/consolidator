@@ -10,6 +10,22 @@ class ThingsController < ApplicationController
     end
   end
 
+
+  # GET /things/lent
+  def lent
+    # This isn't perfect.  @things is set to Things where 
+    # the current user has a stake, but isn't the current holder of the Thing.
+    #
+    # Other Users may also have a stake in an item, and be holding it, 
+    # and it's not technically a loan, but it may be of interest when loading this route.
+    @things = current_user.things.where("held_by != #{current_user.id}")
+
+    respond_to do |format|
+      format.html # lent.html.erb
+      format.json { render json: @things }
+    end
+  end
+
   # GET /things/1
   # GET /things/1.json
   def show
