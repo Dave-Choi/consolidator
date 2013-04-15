@@ -56,15 +56,23 @@ class ThingsController < ApplicationController
   # POST /things
   # POST /things.json
   def create
-    @thing = Thing.new(params[:thing])
+    #@thing = Thing.new(params[:thing])
+    @thing = current_user.things.build(params[:thing])
+    @thing.holder = current_user
 
     respond_to do |format|
       if @thing.save
-        format.html { redirect_to @thing, notice: 'Thing was successfully created.' }
-        format.json { render json: @thing, status: :created, location: @thing }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @thing.errors, status: :unprocessable_entity }
+        @stake = current_user.stakes.build(
+          :amount => 1
+        )
+        @stake.thing = @thing
+        if(@stake.save)
+          format.html { redirect_to @thing, notice: 'Thing was successfully created.' }
+          format.json { render json: @thing, status: :created, location: @thing }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @thing.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
