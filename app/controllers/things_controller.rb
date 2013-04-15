@@ -26,6 +26,16 @@ class ThingsController < ApplicationController
     end
   end
 
+  # GET /things/borrowed
+  def borrowed
+    @things = Thing.borrowed(current_user)
+
+    respond_to do |format|
+      format.html # borrowed.html.erb
+      format.json { render json: @things }
+    end
+  end
+
   # GET /things/1
   # GET /things/1.json
   def show

@@ -8,6 +8,7 @@ Consolidator::Application.routes.draw do
   resources :things do
     collection do
       get 'lent'
+      get 'borrowed'
     end
   end
 
