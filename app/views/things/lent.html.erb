@@ -1,5 +1,3 @@
 <h2>Out on Loan</h2>
 
-<% @things.each do |thing| %>
-  <%= render :partial => "thing_brief", :locals => {:thing => thing} %>
-<% end %>
+<%= render(@things) || "You don't have anything out on loan." %>

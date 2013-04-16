@@ -1,5 +1,3 @@
 <h2>Things You're Borrowing</h2>
 
-<% @things.each do |thing| %>
-  <%= render :partial => "thing_brief", :locals => {:thing => thing} %>
-<% end %>
+<%= render(@things) || "You don't have any borrowed things." %>
