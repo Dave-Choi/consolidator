@@ -36,8 +36,8 @@ class Thing < ActiveRecord::Base
     # Borrowed Things are defined as things in the user's possession
     # where the user has no stakes
 
-    staked = Stake.where("user_id == #{user.id}").pluck("thing_id")
-    return Thing.where("held_by == #{user.id} and things.id not in (?)", staked)
+    staked = Stake.where("user_id = #{user.id}").pluck("thing_id")
+    return Thing.where("held_by = #{user.id} and things.id not in (?)", staked)
   end
 
   def self.available(user)
