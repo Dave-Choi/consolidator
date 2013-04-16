@@ -36,6 +36,16 @@ class ThingsController < ApplicationController
     end
   end
 
+  # GET /things/available
+  def available
+    @things = Thing.available(current_user)
+
+    respond_to do |format|
+      format.html # available.html.erb
+      format.json { render json: @things }
+    end
+  end
+
   # GET /things/1
   # GET /things/1.json
   def show

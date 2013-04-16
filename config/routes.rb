@@ -9,6 +9,7 @@ Consolidator::Application.routes.draw do
     collection do
       get 'lent'
       get 'borrowed'
+      get 'available'
     end
   end
 
