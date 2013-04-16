@@ -42,7 +42,7 @@ class Thing < ActiveRecord::Base
 
   def self.available(user)
     # Things that user has friends with stakes in.
-    return Thing.where("id in (?) and held_by != #{user.id}", Stake.where("user_id in (?)", user.friends.pluck('id') ).pluck("thing_id") )
+    return Thing.where("held_by != #{user.id} and id in (?)", Stake.where("user_id in (?)", user.friends.pluck('id') ).pluck("thing_id") )
   end
 
 end
