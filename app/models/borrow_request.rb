@@ -26,4 +26,14 @@ class BorrowRequest < ActiveRecord::Base
         new_approval.save!
     end
   end
+
+  def self.request_valid?(thing, user)
+    # A request shouldn't be made if the user has a stake in the item,
+    # or if the user already has the Thing.
+    user_is_owner = Stake.where("user_id = #{user.id} and thing_id = #{thing.id}").exists?
+    user_has_thing = thing.held_by == user.id
+
+    return !(user_is_owner || user_has_thing)
+  end
+
 end
