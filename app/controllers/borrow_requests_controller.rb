@@ -2,7 +2,7 @@ class BorrowRequestsController < ApplicationController
   # GET /borrow_requests
   # GET /borrow_requests.json
   def index
-    @borrow_requests = BorrowRequest.all
+    @borrow_requests = current_user.borrow_requests.all
 
     respond_to do |format|
       format.html # index.html.erb
