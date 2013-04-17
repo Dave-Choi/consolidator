@@ -8,5 +8,6 @@
 class Approval < ActiveRecord::Base
   belongs_to :borrow_request
   belongs_to :user
-  attr_protected :status
+  attr_protected :status, :inclusion => { :in => %w(accepted rejected pending),
+    :message => "%{value} is not a valid size" }
 end
