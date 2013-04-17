@@ -1,25 +1,2 @@
-<h1>Listing borrow_requests</h1>
-
-<table>
-  <tr>
-    <th>Thing</th>
-    <th>User</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @borrow_requests.each do |borrow_request| %>
-  <tr>
-    <td><%= borrow_request.thing %></td>
-    <td><%= borrow_request.user %></td>
-    <td><%= link_to 'Show', borrow_request %></td>
-    <td><%= link_to 'Edit', edit_borrow_request_path(borrow_request) %></td>
-    <td><%= link_to 'Destroy', borrow_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Borrow request', new_borrow_request_path %>
+<h1>Requests</h1>
+<%= render(@borrow_requests) || "You don't have any outgoing requests." %>
