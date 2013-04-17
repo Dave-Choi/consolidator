@@ -13,6 +13,8 @@ class BorrowRequest < ActiveRecord::Base
   belongs_to :thing
   belongs_to :user
 
+  has_many :approvals, :dependent => :destroy
+
   def create_approvals()
     # Creates one approval for each User with a stake in the Thing
     # to be borrowed
