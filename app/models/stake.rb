@@ -28,7 +28,7 @@
 =end
 
 class Stake < ActiveRecord::Base
-  attr_accessible :amount
+  attr_protected :amount
 
   belongs_to :user
   belongs_to :thing
