@@ -36,4 +36,21 @@ class BorrowRequest < ActiveRecord::Base
     return !(user_is_owner || user_has_thing)
   end
 
+  def self.init_request(thing, user)
+    # Sets up a transaction to create a new BorrowRequest and associated
+    # Approvals.
+    if !BorrowRequest.request_valid?(thing, user)
+        return false
+    end
+
+    ActiveRecord::Base.transaction do
+        new_request = BorrowRequest.new
+        new_request.thing = thing
+        new_request.user = user
+        new_request.save!
+
+        new_request.create_approvals()
+    end
+  end
+
 end
