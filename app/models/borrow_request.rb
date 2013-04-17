@@ -53,4 +53,24 @@ class BorrowRequest < ActiveRecord::Base
     end
   end
 
+  def status()
+    # Returns the overall status of the BorrowRequest, depending on the
+    # statuses of its associated Approvals
+
+    # Request status is as follows:
+    # "rejected" if any of the Approvals are rejected,
+    # "pending" if not rejected, and any of the Approvals are pending,
+    # "approved" otherwise.
+
+    statuses = self.approvals.pluck('status')
+
+    if(statuses.include?('rejected'))
+        return 'rejected'
+    elsif (statuses.include?('pending'))
+        return 'pending'
+    else
+        return 'approved'
+    end
+  end
+
 end
