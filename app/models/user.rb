@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
   has_many :things, :through => :stakes
   has_many :stakes
 
+  has_many :things, :through => :borrow_requests
+  has_many :borrow_requests
+
   include Amistad::FriendModel
 
   def not_friends()
