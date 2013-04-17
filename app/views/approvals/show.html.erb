@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Borrow request:</b>
+  <%= @approval.borrow_request %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @approval.user %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @approval.status %>
+</p>
+
+
+<%= link_to 'Edit', edit_approval_path(@approval) %> |
+<%= link_to 'Back', approvals_path %>

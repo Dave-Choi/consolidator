@@ -1,4 +1,10 @@
 Consolidator::Application.routes.draw do
+  resources :approvals
+
+
+  resources :borrow_requests
+
+
   resources :stakes
 
 

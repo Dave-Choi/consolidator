@@ -11,7 +11,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130414205555) do
+ActiveRecord::Schema.define(:version => 20130417043052) do
+
+  create_table "approvals", :force => true do |t|
+    t.integer  "borrow_request_id"
+    t.integer  "user_id"
+    t.string   "status",            :default => "pending"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+  end
+
+  add_index "approvals", ["borrow_request_id"], :name => "index_approvals_on_borrow_request_id"
+  add_index "approvals", ["status"], :name => "index_approvals_on_status"
+  add_index "approvals", ["user_id"], :name => "index_approvals_on_user_id"
+
+  create_table "borrow_requests", :force => true do |t|
+    t.integer  "thing_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "borrow_requests", ["thing_id"], :name => "index_borrow_requests_on_thing_id"
+  add_index "borrow_requests", ["user_id"], :name => "index_borrow_requests_on_user_id"
 
   create_table "friendships", :force => true do |t|
     t.integer "friendable_id"

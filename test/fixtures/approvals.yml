@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  borrow_request: 
+  user: 
+  status: MyString
+
+two:
+  borrow_request: 
+  user: 
+  status: MyString
