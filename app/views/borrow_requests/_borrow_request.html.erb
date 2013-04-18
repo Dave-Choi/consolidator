@@ -1,8 +1,10 @@
 <div class="borrowRequest">
-    <h3>You've requested to borrow <%= borrow_request.thing.name %> from: </h3>
+    <h3><%= status_icon(borrow_request.status) %> You've requested to borrow <%= borrow_request.thing.name %> from: </h3>
     <div class="approvals">
+        <ul>
         <% borrow_request.approvals.each do |approval| %>
-        <%= render :partial => 'approvals/approval', :locals => {:approval => approval} %>
+            <li><%= render :partial => 'approvals/approval', :locals => {:approval => approval} %></li>
         <% end %>
+        </ul>
     </div>
 </div>
