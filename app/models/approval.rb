@@ -12,4 +12,7 @@ class Approval < ActiveRecord::Base
   belongs_to :user
   attr_accessible :status, :inclusion => { :in => %w(approved rejected pending),
     :message => "%{value} is not a valid size" }
+
+  has_one :thing, :through => :borrow_request
+  has_one :borrower, :through => :borrow_request, :source => :user
 end
