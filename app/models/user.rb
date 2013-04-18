@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
   has_many :things, :through => :borrow_requests
   has_many :borrow_requests
 
+  has_many :approvals
+
   include Amistad::FriendModel
 
   def not_friends()
