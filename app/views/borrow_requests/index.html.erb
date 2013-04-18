@@ -1,2 +1,13 @@
-<h1>Requests</h1>
+<% if @pending_approvals.length != 0 %>
+    <h2>Awaiting Your Approval</h2>
+    <ul>
+    <% @pending_approvals.each do |approval| %>
+        <li><%= approval.borrower.name %> wants to borrow your <%= approval.thing.name %>
+            <%= link_to "", approval_path(approval, :approval => { :status => "approved"}), :class => "icon-ok", :method => "put" %>
+            <%= link_to "", approval_path(approval, :approval => { :status => "rejected"}), :class => "icon-remove", :method => "put" %>
+    <% end %>
+    </ul>
+<% end %>
+
+<h2>Your Requests</h2>
 <%= render(@borrow_requests) || "You don't have any outgoing requests." %>

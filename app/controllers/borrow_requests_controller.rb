@@ -4,6 +4,7 @@ class BorrowRequestsController < ApplicationController
   # GET /borrow_requests.json
   def index
     @borrow_requests = current_user.borrow_requests.all
+    @pending_approvals = current_user.approvals.where("status = 'pending'")
 
     respond_to do |format|
       format.html # index.html.erb
