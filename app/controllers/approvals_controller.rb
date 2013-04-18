@@ -1,4 +1,5 @@
 class ApprovalsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /approvals
   # GET /approvals.json
   def index

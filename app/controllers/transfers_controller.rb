@@ -1,4 +1,5 @@
 class TransfersController < ApplicationController
+  before_filter :authenticate_user!
   # GET /transfers
   # GET /transfers.json
   def index

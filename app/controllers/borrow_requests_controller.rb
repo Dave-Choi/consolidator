@@ -1,4 +1,5 @@
 class BorrowRequestsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /borrow_requests
   # GET /borrow_requests.json
   def index

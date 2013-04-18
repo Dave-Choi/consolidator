@@ -1,4 +1,5 @@
 class ThingsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /things
   # GET /things.json
   def index
