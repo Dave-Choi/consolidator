@@ -19,12 +19,15 @@ class BorrowRequest < ActiveRecord::Base
     # Creates one approval for each User with a stake in the Thing
     # to be borrowed
     owners = self.thing.users
+    was_successful = true
     owners.each do |owner|
         new_approval = Approval.new()
         new_approval.borrow_request = self
         new_approval.user = owner
-        new_approval.save!
+        was_successful = new_approval.save! && was_successful
     end
+    return was_successful
+  end
 
   def self.request_pending?(thing, user)
     # A request is only pending if that status of one of its approvals is pending
@@ -72,14 +75,18 @@ class BorrowRequest < ActiveRecord::Base
         return false
     end
 
+    was_successful = false
+
     ActiveRecord::Base.transaction do
         new_request = BorrowRequest.new
         new_request.thing = thing
         new_request.user = user
-        new_request.save!
+        was_successful = new_request.save!
 
-        new_request.create_approvals()
+        was_successful = new_request.create_approvals() && was_successful
     end
+
+    return was_successful
   end
 
   def status()
