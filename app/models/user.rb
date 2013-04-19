@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
 
-  # TODO: Things lists are broken because user.things is ambiguous.
+  # TODO: user.things is ambiguous.
   has_many :things, :through => :transfers
   has_many :transfers
 
