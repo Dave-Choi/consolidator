@@ -45,6 +45,11 @@ class Thing < ActiveRecord::Base
     return Thing.where("held_by != #{user.id} and id in (?)", Stake.where("user_id in (?)", user.friends.pluck('id') ).pluck("thing_id") )
   end
 
+  def self.viewable(user)
+    # Things that are owned by the user or friends of the user
+    return Thing.where("id in (?)", Stake.where("user_id in (?)", user.friends.pluck('id').push(user.id) ).pluck("thing_id") )
+  end
+
   def owned_by_friend?(user)
     # Returns true if this Thing is owned by a friend of user.
     owner_ids = self.users.pluck("users.id")
