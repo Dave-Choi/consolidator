@@ -42,15 +42,14 @@ class BorrowRequestsController < ApplicationController
   # POST /borrow_requests
   # POST /borrow_requests.json
   def create
-    @borrow_request = BorrowRequest.new(params[:borrow_request])
+    thing = Thing.find(params[:borrow_request][:thing_id])
+    user = User.find(params[:borrow_request][:user_id])
 
     respond_to do |format|
-      if @borrow_request.save
-        format.html { redirect_to @borrow_request, notice: 'Borrow request was successfully created.' }
-        format.json { render json: @borrow_request, status: :created, location: @borrow_request }
+      if BorrowRequest.init_request(thing, user)
+        format.html { redirect_to :back, notice: 'Your request has been created and is pending response.' }
       else
-        format.html { render action: "new" }
-        format.json { render json: @borrow_request.errors, status: :unprocessable_entity }
+        format.html { redirect_to :back, notice: 'There was a problem creating the request.' }
       end
     end
   end
