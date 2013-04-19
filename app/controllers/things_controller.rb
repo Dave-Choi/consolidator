@@ -50,7 +50,7 @@ class ThingsController < ApplicationController
   # GET /things/1
   # GET /things/1.json
   def show
-    @thing = current_user.things.find(params[:id])
+    @thing = Thing.viewable(current_user).find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
