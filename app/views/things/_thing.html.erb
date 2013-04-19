@@ -10,6 +10,22 @@
             Held by: <%= thing.holder.name %>
         <% end %>
     </div>
+    <% if(BorrowRequest.request_valid?(thing, current_user)) %>
+        <%= link_to(
+            "Ask to Borrow",
+            borrow_requests_path(
+                :borrow_request => {
+                    :thing_id => thing.id,
+                    :user_id => current_user.id
+                },
+                :source_path => ''
+            ),
+            :class => "btn",
+            :method => "post"
+        ) %>
+    <% elsif(BorrowRequest.request_pending?(thing, current_user)) %>
+        INFORMATION ABOUT EXISTING PENDING REQUEST HERE
+    <% end %>
     <div class="owners">
         Owners: <%= thing.users.pluck("name") %>
     </div>
