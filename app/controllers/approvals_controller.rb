@@ -61,7 +61,12 @@ class ApprovalsController < ApplicationController
 
     respond_to do |format|
       if @approval.update_attributes(params[:approval])
-        format.html { redirect_to @approval, notice: 'Approval was successfully updated.' }
+        if(@approval.status == 'pending')
+          format.html { redirect_to borrow_requests_path, notice: "Undo successful.".html_safe }
+        else
+          link = view_context.link_to("undo", approval_path(@approval, :approval => { :status => "pending"}), :method => "put")
+          format.html { redirect_to borrow_requests_path, notice: "You #{@approval.status} #{@approval.borrower.name}'s request #{link}".html_safe }
+        end
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
