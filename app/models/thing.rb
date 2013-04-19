@@ -17,8 +17,8 @@ class Thing < ActiveRecord::Base
   has_many :users, :through => :stakes
 
   has_many :transfers
-  has_many :giver, :through => :transfers # Is this the right way to do this?
-  has_many :receiver, :through => :transfers # Is this the right way to do this?
+  has_many :givers, :through => :transfers
+  has_many :receivers, :through => :transfers
 
 
 # Would be too inefficient to run on every Thing all the time:
