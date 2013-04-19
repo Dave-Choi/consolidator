@@ -45,4 +45,10 @@ class Thing < ActiveRecord::Base
     return Thing.where("held_by != #{user.id} and id in (?)", Stake.where("user_id in (?)", user.friends.pluck('id') ).pluck("thing_id") )
   end
 
+  def owned_by_friend?(user)
+    # Returns true if this Thing is owned by a friend of user.
+    owner_ids = self.users.pluck("users.id")
+    friend_ids = user.friends.pluck("id")
+    return !(owner_ids & friend_ids).empty?
+  end
 end
