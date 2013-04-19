@@ -25,15 +25,44 @@ class BorrowRequest < ActiveRecord::Base
         new_approval.user = owner
         new_approval.save!
     end
+
+  def self.request_pending?(thing, user)
+    # A request is only pending if that status of one of its approvals is pending
+    # Only check the most recent one, to save processing.
+    # If this is being used properly, a new request shouldn't go through when there's
+    # one that's still unresolved.
+
+    # TODO: This can actually break if a user approves/rejects a request,
+    #       and then undoes the action after a new request is made.
+    #       Figure out a better way to do this.
+    most_recent_request = BorrowRequest.where("user_id = #{user.id} and thing_id = #{thing.id}").order("created_at desc").first
+    pending_request_exists = most_recent_request ? 
+        most_recent_request.status() == "pending" : 
+        false
   end
 
   def self.request_valid?(thing, user)
-    # A request shouldn't be made if the user has a stake in the item,
-    # or if the user already has the Thing.
+    # TODO: This function needs unit testing like nobody's business.
+    #       It also does too much stuff, and should be broken down and
+    #       reorganized so it only checks as much as it needs to, and
+    #       can give useful status messages if someone tries to make a bad request
+
+    # A request shouldn't be made if:
+    #   - the user has a stake in the item
+    #   - the user already has the Thing
+    #   - the thing isn't available in the User's network
+    #   - a pending request already exists
+
     user_is_owner = Stake.where("user_id = #{user.id} and thing_id = #{thing.id}").exists?
     user_has_thing = thing.held_by == user.id
+    pending_request_exists = BorrowRequest.request_pending?(thing, user)
 
-    return !(user_is_owner || user_has_thing)
+    return !(
+        user_is_owner ||
+        user_has_thing ||
+        !thing.owned_by_friend?(user) ||
+        pending_request_exists
+    )
   end
 
   def self.init_request(thing, user)
