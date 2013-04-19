@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name
   # attr_accessible :title, :body
 
+
+  # TODO: The owned things lists are broken because user.things is ambiguous.
   has_many :things, :through => :transfers
   has_many :transfers
 
