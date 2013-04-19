@@ -10,11 +10,11 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
 
-  # TODO: The owned things lists are broken because user.things is ambiguous.
+  # TODO: Things lists are broken because user.things is ambiguous.
   has_many :things, :through => :transfers
   has_many :transfers
 
-  has_many :things, :through => :stakes
+  has_many :owned_things, :through => :stakes, :source => :thing
   has_many :stakes
 
   has_many :things, :through => :borrow_requests

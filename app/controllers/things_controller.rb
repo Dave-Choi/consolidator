@@ -3,7 +3,7 @@ class ThingsController < ApplicationController
   # GET /things
   # GET /things.json
   def index
-    @things = current_user.things.all
+    @things = current_user.owned_things.all
 
     respond_to do |format|
       format.html # index.html.erb
