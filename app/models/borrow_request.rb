@@ -7,6 +7,9 @@
         - If any Approval is rejected, the BorrowRequest fails.
         - If all Approvals are accepted, the BorrowRequest succeeds,
         and a transfer should be initiated.
+
+    TODO: A borrow request should be considered unresolved unless it was
+        rejected, or it's approved and a transfer took place, or the request was cancelled.
 =end
 
 class BorrowRequest < ActiveRecord::Base
@@ -30,15 +33,17 @@ class BorrowRequest < ActiveRecord::Base
   end
 
   def self.request_pending?(thing, user)
-    # A request is only pending if that status of one of its approvals is pending
+    # A request is only pending if the status of one of its approvals is rejected
+    # or there's a pending transfer.
+
     # Only check the most recent one, to save processing.
     #   TODO: Add a created_at index to the schema to speed up this query
+
     # If this is being used properly, a new request shouldn't go through when there's
     # one that's still unresolved.
 
     # TODO: This can actually break if a user approves/rejects a request,
     #       and then undoes the action after a new request is made.
-    #       Figure out a better way to do this.
     most_recent_request = BorrowRequest.where("user_id = #{user.id} and thing_id = #{thing.id}").order("created_at desc").first
     pending_request_exists = most_recent_request ? 
         most_recent_request.status() == "pending" : 
