@@ -43,6 +43,11 @@ class Thing < ActiveRecord::Base
 
   def self.available(user)
     # Things that user has friends with stakes in.
+    # TODO: This set includes things that the user has stakes in
+    #       This might be almost okay.  Have to think about how users will want to use the system.
+    #       i.e. The "available" view is used when the user needs/wants a thing.  If they already own one,
+    #           that information is useful.
+    #           It should probably give the full list, and a filter to exclude owned things should be provided on the front-end.
     return Thing.where("held_by != #{user.id} and id in (?)", Stake.where("user_id in (?)", user.friends.pluck('id') ).pluck("thing_id") )
   end
 
