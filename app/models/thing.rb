@@ -32,6 +32,7 @@ class Thing < ActiveRecord::Base
   #   end
   # end
 
+  # TODO: This stuff should probably be converted to Arel scopes.
   def self.borrowed(user)
     # Borrowed Things are defined as things in the user's possession
     # where the user has no stakes
