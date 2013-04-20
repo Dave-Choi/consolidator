@@ -2,8 +2,6 @@
     Approvals represent per-owner responses to requests to borrow
     Things.
 
-
-    TODO: The record's timestamps should be updated whenever the status is updated
     status defaults to "pending" at creation.
 =end
 
