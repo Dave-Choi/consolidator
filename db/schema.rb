@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130417043052) do
+ActiveRecord::Schema.define(:version => 20130420140530) do
 
   create_table "approvals", :force => true do |t|
     t.integer  "borrow_request_id"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20130417043052) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "borrow_requests", ["created_at"], :name => "index_borrow_requests_on_created_at"
   add_index "borrow_requests", ["thing_id"], :name => "index_borrow_requests_on_thing_id"
   add_index "borrow_requests", ["user_id"], :name => "index_borrow_requests_on_user_id"
 

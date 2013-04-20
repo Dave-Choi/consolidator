@@ -37,7 +37,6 @@ class BorrowRequest < ActiveRecord::Base
     # or there's a pending transfer.
 
     # Only check the most recent one, to save processing.
-    #   TODO: Add a created_at index to the schema to speed up this query
 
     # If this is being used properly, a new request shouldn't go through when there's
     # one that's still unresolved.
