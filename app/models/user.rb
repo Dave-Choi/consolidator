@@ -10,9 +10,9 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
 
-  # TODO: user.things is ambiguous.
-  has_many :things, :through => :transfers
-  has_many :transfers
+  # TODO: Figure out how to describe and divide this association between Things received and given.
+  # has_many :things, :through => :transfers
+  # has_many :transfers
 
   has_many :owned_things, :through => :stakes, :source => :thing
   has_many :stakes
