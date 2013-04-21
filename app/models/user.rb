@@ -10,9 +10,11 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
 
-  # TODO: Figure out how to describe and divide this association between Things received and given.
-  # has_many :things, :through => :transfers
-  # has_many :transfers
+  has_many :received_transfers, :class_name => "Transfer", :foreign_key => "to_user_id"
+  has_many :received_things, :through => :received_transfers, :source => :thing
+
+  has_many :given_transfers, :class_name => "Transfer", :foreign_key => "from_user_id"
+  has_many :given_things, :through => :given_transfers, :source => :thing
 
   has_many :owned_things, :through => :stakes, :source => :thing
   has_many :stakes
