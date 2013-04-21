@@ -5,8 +5,8 @@
 </div>
 
 <div class="history">
-    <%= render @thing.transfers %>
     <h3>Transfer History</h3>
+    <%= render @thing.transfers.order('datetime desc') %>
 </div>
 
 <%= link_to 'Edit', edit_thing_path(@thing) %> |
