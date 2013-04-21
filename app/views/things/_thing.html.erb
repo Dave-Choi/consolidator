@@ -27,6 +27,12 @@
         INFORMATION ABOUT EXISTING PENDING REQUEST HERE
     <% end %>
     <div class="owners">
-        Owners: <%= thing.users.pluck("name") %>
+        Owners: 
+        <%= 
+            thing.users.map {
+                |user|
+                link_to(user.name, user_path(user.id)) 
+            }.join(', ').html_safe 
+        %>
     </div>
 </div>
