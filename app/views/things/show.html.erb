@@ -1,7 +1,7 @@
 <%= render @thing %>
 
 <div class="details">
-    Added: <%= @thing.created_at %>
+    Added: <%= time_ago_in_words @thing.created_at %> ago
 </div>
 
 <div class="history">
