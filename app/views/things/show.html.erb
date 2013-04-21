@@ -5,9 +5,7 @@
 </div>
 
 <div class="history">
-    <% @thing.transfers.each do |transfer| %>
-        <%= render :partial => "transfers/transfer_brief", :locals => {:transfer => transfer} %>
-    <% end %>
+    <%= render @thing.transfers %>
 </div>
 
 <%= link_to 'Edit', edit_thing_path(@thing) %> |
