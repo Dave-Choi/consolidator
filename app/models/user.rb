@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   has_many :owned_things, :through => :stakes, :source => :thing
   has_many :stakes
 
-  has_many :things, :through => :borrow_requests
+  has_many :requested_things, :through => :borrow_requests, :source => :thing
   has_many :borrow_requests
 
   has_many :approvals
