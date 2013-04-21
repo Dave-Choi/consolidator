@@ -71,7 +71,7 @@ class ThingsController < ApplicationController
 
   # GET /things/1/edit
   def edit
-    @thing = current_user.things.find(params[:id])
+    @thing = current_user.owned_things.find(params[:id])
   end
 
   # POST /things
@@ -101,7 +101,7 @@ class ThingsController < ApplicationController
   # PUT /things/1
   # PUT /things/1.json
   def update
-    @thing = current_user.things.find(params[:id])
+    @thing = current_user.owned_things.find(params[:id])
 
     respond_to do |format|
       if @thing.update_attributes(params[:thing])
