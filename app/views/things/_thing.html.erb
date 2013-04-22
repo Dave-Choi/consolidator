@@ -7,7 +7,7 @@
     </div>
     <div class="holder">
         <% if(thing.holder != current_user) %>
-            Held by: <%= thing.holder.name %>
+            Held by: <%= link_to thing.holder.name, thing.holder %>
         <% end %>
     </div>
     <% if(BorrowRequest.request_valid?(thing, current_user)) %>
