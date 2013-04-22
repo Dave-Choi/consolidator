@@ -62,4 +62,9 @@ class Thing < ActiveRecord::Base
     friend_ids = user.friends.pluck("id")
     return !(owner_ids & friend_ids).empty?
   end
+
+  def last_transfer()
+    # Returns the most recent transfer for thing thing.
+    return self.transfers.order("datetime desc").limit(1).first
+  end
 end
