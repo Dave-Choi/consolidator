@@ -1,1 +1,1 @@
-<p>From <%= transfer.giver.name %> to <%= transfer.receiver.name %>, <%= time_ago_in_words transfer.datetime %> ago</p>
+<p>From <%= link_to transfer.giver.name, transfer.giver %> to <%= link_to transfer.receiver.name, transfer.receiver %>, <%= time_ago_in_words transfer.datetime %> ago</p>
