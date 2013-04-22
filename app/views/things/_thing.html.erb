@@ -10,6 +10,17 @@
             Held by: <%= link_to thing.holder.name, thing.holder %>
         <% end %>
     </div>
+
+    <div class="owners">
+        Owners: 
+        <%= 
+            thing.users.map {
+                |user|
+                link_to(user.name, user_path(user.id)) 
+            }.join(', ').html_safe 
+        %>
+    </div>
+
     <% if(BorrowRequest.request_valid?(thing, current_user)) %>
         <%= link_to(
             "Ask to Borrow",
@@ -26,13 +37,4 @@
     <% elsif(BorrowRequest.request_pending?(thing, current_user)) %>
         INFORMATION ABOUT EXISTING PENDING REQUEST HERE
     <% end %>
-    <div class="owners">
-        Owners: 
-        <%= 
-            thing.users.map {
-                |user|
-                link_to(user.name, user_path(user.id)) 
-            }.join(', ').html_safe 
-        %>
-    </div>
 </div>
