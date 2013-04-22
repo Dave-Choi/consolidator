@@ -1,3 +1,18 @@
 <h2>Out on Loan</h2>
-
-<%= render(@things) || "You don't have anything out on loan." %>
+<% if (@things_by_user.length == 0) %>
+    <%= "You don't have anything out on loan." %>
+<% else
+    @things_by_user.each do |user, things|
+%>
+        <h4><%= link_to(user.name, user) %></h4>
+        <ul>
+            <% things.each do |thing| %>
+                <li><%= link_to(thing.name, thing) %>
+                    <% if last_transfer = thing.last_transfer %>
+                        since <%= thing.last_transfer.datetime.to_date %>
+                    <% end %>
+                </li>
+            <% end %>
+        </ul>
+    <% end %>
+<% end %>

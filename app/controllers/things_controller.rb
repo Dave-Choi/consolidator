@@ -19,9 +19,7 @@ class ThingsController < ApplicationController
     #
     # Other Users may also have a stake in an item, and be holding it, 
     # and it's not technically a loan, but it may be of interest when loading this route.
-
-    # TODO: group these by User as a client-side option
-    @things = current_user.owned_things.where("held_by != #{current_user.id}")
+    @things_by_holder = current_user.owned_things.where("held_by != #{current_user.id}").group_by(&:holder)
 
     respond_to do |format|
       format.html # lent.html.erb
