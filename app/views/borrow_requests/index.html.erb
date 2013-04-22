@@ -2,7 +2,7 @@
     <h2>Awaiting Your Approval</h2>
     <ul>
     <% @pending_approvals.each do |approval| %>
-        <li><%= approval.borrower.name %> wants to borrow your <%= approval.thing.name %>
+        <li><%= link_to approval.borrower.name, approval.borrower %> wants to borrow your <%= link_to approval.thing.name, approval.thing %>
             <%= link_to "", approval_path(approval, :approval => { :status => "approved"}), :class => "icon-ok", :method => "put" %>
             <%= link_to "", approval_path(approval, :approval => { :status => "rejected"}), :class => "icon-remove", :method => "put" %>
     <% end %>

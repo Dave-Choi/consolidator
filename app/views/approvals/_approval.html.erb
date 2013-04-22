@@ -1,1 +1,1 @@
-<%= status_icon(approval.status) %> <%= approval.user.name %> - <%= approval.status %> - <%= time_ago_in_words approval.updated_at %> ago
+<%= status_icon(approval.status) %> <%= link_to approval.user.name, approval.user %> - <%= approval.status %> - <%= time_ago_in_words approval.updated_at %> ago

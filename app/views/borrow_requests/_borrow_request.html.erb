@@ -1,5 +1,5 @@
 <div class="borrowRequest">
-    <h3><%= status_icon(borrow_request.status) %> You've requested to borrow <%= borrow_request.thing.name %> from: </h3>
+    <h3><%= status_icon(borrow_request.status) %> You've requested to borrow <%= link_to borrow_request.thing.name, borrow_request.thing %> from: </h3>
     <div class="approvals">
         <ul>
         <% borrow_request.approvals.each do |approval| %>
