@@ -22,7 +22,7 @@
 								<li><%= link_to "Borrowed", borrowed_things_path %></li>
 							</ul>
 						</li>
-						<li><%= link_to "Requests", borrow_requests_path %></li>
+						<li><%= link_to ("Requests #{badge('badge-info', current_user.approvals.pending.length)} #{badge('badge-success', current_user.borrow_requests.approved.length)} #{badge('badge-important', current_user.borrow_requests.rejected.length)} #{badge('', current_user.borrow_requests.pending.length)}").html_safe, borrow_requests_path %></li>
 						<li><%= link_to "Friends", friends_path %></li>
 					<% end %>
 				</ul>
