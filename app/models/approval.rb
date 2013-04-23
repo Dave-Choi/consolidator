@@ -13,4 +13,8 @@ class Approval < ActiveRecord::Base
 
   has_one :thing, :through => :borrow_request
   has_one :borrower, :through => :borrow_request, :source => :user
+
+  scope :approved, where(:status => 'approved')
+  scope :rejected, where(:status => 'rejected')
+  scope :pending, where(:status => 'pending')
 end

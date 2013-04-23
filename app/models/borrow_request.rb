@@ -114,4 +114,9 @@ class BorrowRequest < ActiveRecord::Base
     end
   end
 
+  # The following scopes reflect the definitions from the status() method.
+  # TODO: scopes seem to be caching until the server/console is reloaded.
+  scope :rejected, joins(:approvals).where("approvals.status = 'rejected'")
+  scope :pending, where("borrow_requests.id not in (?)", rejected).joins(:approvals).where("approvals.status = 'pending'")
+  scope :approved, where("borrow_requests.id not in (?)", rejected | pending)
 end
