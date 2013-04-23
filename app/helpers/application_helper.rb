@@ -9,4 +9,11 @@ module ApplicationHelper
 
         return ('<i class="' + icon_map[status] + '"></i>').html_safe
     end
+
+    def badge(type, content)
+        if(content == 0)
+            content = ''
+        end
+        return ("<span class=\"badge #{type}\">#{content}</span>").html_safe
+    end
 end
