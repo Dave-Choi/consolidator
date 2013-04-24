@@ -24,6 +24,9 @@ Consolidator::Application.routes.draw do
 
   devise_for :users
   match 'users/:id' => 'users#show', as: :user
+  authenticated :user do
+    root :to => "borrow_requests#index"
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
