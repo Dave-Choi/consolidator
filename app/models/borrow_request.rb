@@ -33,8 +33,9 @@ class BorrowRequest < ActiveRecord::Base
   end
 
   def self.request_pending?(thing, user)
-    # A request is only pending if the status of one of its approvals is rejected
-    # or there's a pending transfer.
+    # A request is only pending if none of its approvals are rejected,
+    # or there's a pending transfer.  This notably excludes accepted requests
+    # without a pending transfer.
 
     # Only check the most recent one, to save processing.
 
