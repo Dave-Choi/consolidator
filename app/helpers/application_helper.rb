@@ -3,8 +3,8 @@ module ApplicationHelper
     # Using icons from Font-Awesome
         icon_map = {
             'pending' => 'icon-time',
-            'approved' => 'icon-ok',
-            'rejected' => 'icon-remove'
+            'approved' => 'icon-thumbs-up',
+            'rejected' => 'icon-thumbs-down'
         }
 
         return ('<i class="' + icon_map[status] + '"></i>').html_safe

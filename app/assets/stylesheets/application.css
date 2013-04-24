@@ -13,10 +13,14 @@
  *= require font-awesome
  */
 
-.icon-ok{
+.icon-thumbs-up{
     color: green;
 }
 
-.icon-remove{
+.icon-thumbs-down{
     color: red;
+}
+
+.icon-time{
+    color: gray;
 }

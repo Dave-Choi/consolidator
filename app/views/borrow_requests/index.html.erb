@@ -3,8 +3,8 @@
     <ul>
     <% @pending_approvals.each do |approval| %>
         <li><%= link_to approval.borrower.name, approval.borrower %> wants to borrow your <%= link_to approval.thing.name, approval.thing %>
-            <%= link_to "", approval_path(approval, :approval => { :status => "approved"}), :class => "icon-ok", :method => "put" %>
-            <%= link_to "", approval_path(approval, :approval => { :status => "rejected"}), :class => "icon-remove", :method => "put" %>
+            <%= link_to "", approval_path(approval, :approval => { :status => "approved"}), :class => "icon-thumbs-up", :method => "put" %>
+            <%= link_to "", approval_path(approval, :approval => { :status => "rejected"}), :class => "icon-thumbs-down", :method => "put" %>
     <% end %>
     </ul>
 <% end %>
