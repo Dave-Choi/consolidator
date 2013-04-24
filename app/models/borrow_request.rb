@@ -7,9 +7,14 @@
         - If any Approval is rejected, the BorrowRequest fails.
         - If all Approvals are accepted, the BorrowRequest succeeds,
         and a transfer should be initiated.
+        - The borrower and holder should be presented with a confirmation
+        prompt to notify the system that the transfer has taken place
+            - At which point a Transfer record is created, and the request is resolved
+
 
     TODO: A borrow request should be considered unresolved unless it was
-        rejected, or it's approved and a transfer took place, or the request was cancelled.
+        rejected, or it's approved and a transfer took place, or the request was cancelled
+        (in which case the record and its approvals are destroyed).
 =end
 
 class BorrowRequest < ActiveRecord::Base
