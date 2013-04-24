@@ -39,21 +39,17 @@ class BorrowRequest < ActiveRecord::Base
   end
 
   def self.request_pending?(thing, user)
-    # A request is only pending if none of its approvals are rejected,
-    # or there's a pending transfer.  This notably excludes accepted requests
-    # without a pending transfer.
+    # A request is considered pending if it's not rejected or transferred.
+    # Or, more directly, if its status is pending, or approved (and awaiting transfer)
 
-    # Only check the most recent one, to save processing.
-
-    # If this is being used properly, a new request shouldn't go through when there's
-    # one that's still unresolved.
-
-    # TODO: This can actually break if a user approves/rejects a request,
-    #       and then undoes the action after a new request is made.
-    most_recent_request = BorrowRequest.where("user_id = #{user.id} and thing_id = #{thing.id}").order("created_at desc").first
-    pending_request_exists = most_recent_request ? 
-        most_recent_request.status() == "pending" : 
-        false
+    # Order requests in descending chronological order as newer requests should be more likely to have pending status.
+    requests = BorrowRequest.where("user_id = #{user.id} and thing_id = #{thing.id}").order('created_at desc')
+    requests.each do |request|
+        if(request.status == 'pending' || request.status == 'approved')
+            return true
+        end
+    end
+    return false
   end
 
   def self.request_valid?(thing, user)
