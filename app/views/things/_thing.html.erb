@@ -1,9 +1,6 @@
 <div class="thingBrief">
     <div class="info">
         <h3><%= link_to thing.name, thing_path(thing.id) %></h3>
-        <div class="tags">
-            LIST TAGS HERE
-        </div>
     </div>
     <div class="holder">
         <% if(thing.holder != current_user) %>
