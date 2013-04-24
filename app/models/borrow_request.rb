@@ -107,7 +107,8 @@ class BorrowRequest < ActiveRecord::Base
 
     # Request status is as follows:
     # "rejected" if any of the Approvals are rejected,
-    # "pending" if not rejected, and any of the Approvals are pending,
+    # "pending" if not rejected, and any of the Approvals are pending (this means pending approval),
+    # "transferred" if not pending approval or rejected, and a transfer record exists for this request
     # "approved" otherwise.
 
     statuses = self.approvals.pluck('status')
@@ -117,7 +118,11 @@ class BorrowRequest < ActiveRecord::Base
     elsif (statuses.include?('pending'))
         return 'pending'
     else
-        return 'approved'
+        if(self.transfer)
+            return 'transferred'
+        else
+            return 'approved'
+        end
     end
   end
 
