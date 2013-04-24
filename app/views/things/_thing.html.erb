@@ -34,7 +34,15 @@
             :class => "btn",
             :method => "post"
         ) %>
-    <% elsif(BorrowRequest.request_pending?(thing, current_user)) %>
-        INFORMATION ABOUT EXISTING PENDING REQUEST HERE
+    <% 
+        elsif(BorrowRequest.request_pending?(thing, current_user)) 
+            request = BorrowRequest.most_recent_pending(thing, current_user)
+    %>
+            You've already requested to borrow this:
+            <ul>
+                <% request.approvals.each do |approval| %>
+                    <li><%= render(approval) %></li>
+                <% end %>
+            </ul>
     <% end %>
 </div>
