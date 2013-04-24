@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130420140530) do
+ActiveRecord::Schema.define(:version => 20130424140607) do
 
   create_table "approvals", :force => true do |t|
     t.integer  "borrow_request_id"
@@ -65,13 +65,15 @@ ActiveRecord::Schema.define(:version => 20130420140530) do
 
   create_table "transfers", :force => true do |t|
     t.datetime "datetime"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.integer  "from_user_id"
     t.integer  "to_user_id"
     t.integer  "thing_id"
+    t.integer  "borrow_request_id"
   end
 
+  add_index "transfers", ["borrow_request_id"], :name => "index_transfers_on_borrow_request_id"
   add_index "transfers", ["datetime"], :name => "index_transfers_on_datetime"
   add_index "transfers", ["from_user_id"], :name => "index_transfers_on_from_user_id"
   add_index "transfers", ["thing_id"], :name => "index_transfers_on_thing_id"

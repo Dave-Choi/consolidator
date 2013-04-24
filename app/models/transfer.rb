@@ -17,4 +17,8 @@ class Transfer < ActiveRecord::Base
 
   belongs_to :thing
   validates :thing_id, presence: true
+
+  # This may be undefined for transfers users may want to manually
+  # create for people outside of the system.
+  belongs_to :borrow_request
 end
