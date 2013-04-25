@@ -4,7 +4,8 @@ module ApplicationHelper
         icon_map = {
             'pending' => 'icon-time',
             'approved' => 'icon-thumbs-up',
-            'rejected' => 'icon-thumbs-down'
+            'rejected' => 'icon-thumbs-down',
+            'transferred' => 'icon-exchange'
         }
 
         return ('<i class="' + icon_map[status] + '"></i>').html_safe
