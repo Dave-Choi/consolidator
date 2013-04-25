@@ -3,6 +3,7 @@ class BorrowRequestsController < ApplicationController
   # GET /borrow_requests
   # GET /borrow_requests.json
   def index
+    # TODO: Reduce scope of requests to ones that haven't been resolved.  i.e. Not rejected or transferred.
     @borrow_requests = current_user.borrow_requests.all
     @pending_approvals = current_user.approvals.where("status = 'pending'")
 
