@@ -41,11 +41,21 @@ class TransfersController < ApplicationController
   # POST /transfers
   # POST /transfers.json
   def create
-    @transfer = Transfer.new(params[:transfer])
+    borrow_request = BorrowRequest.find(params[:transfer][:borrow_request_id])
+    if(borrow_request)
+      # Everything about a new transfer can be inferred from the borrow_request
+      @transfer = borrow_request.build_transfer()
+    else
+      @transfer = Transfer.new()
+      @transfer.datetime = User.find(params[:transfer][:datetime])
+      @transfer.giver = User.find(params[:transfer][:giver])
+      @transfer.receiver = User.find(params[:transfer][:receiver])
+      @transfer.thing = Thing.find(params[:transfer][:thing])
+    end
 
     respond_to do |format|
       if @transfer.save
-        format.html { redirect_to @transfer, notice: 'Transfer was successfully created.' }
+        format.html { redirect_to @transfer.thing, notice: 'Transfer was successfully logged.' }
         format.json { render json: @transfer, status: :created, location: @transfer }
       else
         format.html { render action: "new" }
