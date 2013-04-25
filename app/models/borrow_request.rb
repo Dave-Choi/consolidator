@@ -97,6 +97,17 @@ class BorrowRequest < ActiveRecord::Base
     return was_successful
   end
 
+  def build_transfer()
+    new_transfer = Transfer.new
+    new_transfer.borrow_request = self
+    new_transfer.receiver = self.user
+    new_transfer.thing = self.thing
+    new_transfer.giver = self.thing.holder
+    new_transfer.datetime = DateTime.current
+
+    return new_transfer
+  end
+
   def status()
     # Returns the overall status of the BorrowRequest, depending on the
     # statuses of its associated Approvals
