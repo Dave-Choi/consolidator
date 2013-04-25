@@ -20,7 +20,7 @@
 
     <% if(BorrowRequest.request_valid?(thing, current_user)) %>
         <%= link_to(
-            "Ask to Borrow",
+            "Borrow",
             borrow_requests_path(
                 :borrow_request => {
                     :thing_id => thing.id,
