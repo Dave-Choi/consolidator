@@ -46,11 +46,14 @@ class BorrowRequest < ActiveRecord::Base
 
   # The following scopes reflect the definitions from the status() method.
   # These are wrapped in lambdas to avoid cached results.
+
+  # This is necessary because when ids is empty, the SQL becomes 'where id not in (NULL)', which will always return an empty set.
+  scope :excluding_ids, lambda { |ids| where(['id not in (?)', ids]) if ids.any? }
+
   scope :rejected, lambda{ joins(:approvals).where("approvals.status = 'rejected'") }
-  scope :pending, lambda{ where("borrow_requests.id not in (?)", rejected).joins(:approvals).uniq.where("approvals.status = 'pending'") }
-  # TODO: Using 'where("borrow_requests.id not in (?)", rejected' returns an empty set when the intermediate result is empty, because it turns into: 'WHERE (id not in (NULL))'
+  scope :pending, lambda{ excluding_ids(rejected).joins(:approvals).uniq.where("approvals.status = 'pending'") }
   scope :transferred, lambda{ joins(:transfer) }
-  scope :approved, lambda{ where("borrow_requests.id not in (?)", rejected | pending | transferred) }
+  scope :approved, lambda{ excluding_ids(rejected | pending | transferred) }
 
   # actionable requests are ones that are not resolved by being transferred.
   #   Rejected requests are included to be dismissable by the requester
