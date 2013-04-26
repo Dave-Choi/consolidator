@@ -19,6 +19,42 @@ class BorrowRequest < ActiveRecord::Base
   has_many :approvals, :dependent => :destroy
   has_one :transfer
 
+  def status()
+    # Returns the overall status of the BorrowRequest, depending on the
+    # statuses of its associated Approvals and Transfers
+
+    # Request status is as follows:
+    # "rejected" if any of the Approvals are rejected,
+    # "pending" if not rejected, and any of the Approvals are pending (this means pending approval),
+    # "transferred" if not pending approval or rejected, and a transfer record exists for this request
+    # "approved" otherwise -- This is notably mutually exclusive from transferred.
+
+    statuses = self.approvals.pluck('status')
+
+    if(statuses.include?('rejected'))
+        return 'rejected'
+    elsif (statuses.include?('pending'))
+        return 'pending'
+    else
+        if(self.transfer)
+            return 'transferred'
+        else
+            return 'approved'
+        end
+    end
+  end
+
+  # The following scopes reflect the definitions from the status() method.
+  # These are wrapped in lambdas to avoid cached results.
+  scope :rejected, lambda{ joins(:approvals).where("approvals.status = 'rejected'") }
+  scope :pending, lambda{ where("borrow_requests.id not in (?)", rejected).joins(:approvals).uniq.where("approvals.status = 'pending'") }
+  scope :transferred, lambda{ joins(:transfer) }
+  scope :approved, lambda{ where("borrow_requests.id not in (?)", rejected | pending | transferred) }
+
+  # actionable requests are ones that are not resolved by being transferred.
+  #   Rejected requests are included to be dismissable by the requester
+  scope :actionable, lambda{ where("borrow_requests.id not in (?)", transferred) }
+
   def create_approvals()
     # Creates one approval for each User with a stake in the Thing
     # to be borrowed
@@ -104,39 +140,4 @@ class BorrowRequest < ActiveRecord::Base
     return new_transfer
   end
 
-  def status()
-    # Returns the overall status of the BorrowRequest, depending on the
-    # statuses of its associated Approvals and Transfers
-
-    # Request status is as follows:
-    # "rejected" if any of the Approvals are rejected,
-    # "pending" if not rejected, and any of the Approvals are pending (this means pending approval),
-    # "transferred" if not pending approval or rejected, and a transfer record exists for this request
-    # "approved" otherwise -- This is notably mutually exclusive from transferred.
-
-    statuses = self.approvals.pluck('status')
-
-    if(statuses.include?('rejected'))
-        return 'rejected'
-    elsif (statuses.include?('pending'))
-        return 'pending'
-    else
-        if(self.transfer)
-            return 'transferred'
-        else
-            return 'approved'
-        end
-    end
-  end
-
-  # The following scopes reflect the definitions from the status() method.
-  # These are wrapped in lambdas to avoid cached results.
-  scope :rejected, lambda{ joins(:approvals).where("approvals.status = 'rejected'") }
-  scope :pending, lambda{ where("borrow_requests.id not in (?)", rejected).joins(:approvals).uniq.where("approvals.status = 'pending'") }
-  scope :transferred, lambda{ joins(:transfer) }
-  scope :approved, lambda{ where("borrow_requests.id not in (?)", rejected | pending | transferred) }
-
-  # actionable requests are ones that are not resolved by being transferred.
-  #   Rejected requests are included to be dismissable by the requester
-  scope :actionable, lambda{ where("borrow_requests.id not in (?)", transferred) }
 end
