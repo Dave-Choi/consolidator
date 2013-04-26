@@ -48,6 +48,7 @@ class BorrowRequest < ActiveRecord::Base
   # These are wrapped in lambdas to avoid cached results.
   scope :rejected, lambda{ joins(:approvals).where("approvals.status = 'rejected'") }
   scope :pending, lambda{ where("borrow_requests.id not in (?)", rejected).joins(:approvals).uniq.where("approvals.status = 'pending'") }
+  # TODO: Using 'where("borrow_requests.id not in (?)", rejected' returns an empty set when the intermediate result is empty, because it turns into: 'WHERE (id not in (NULL))'
   scope :transferred, lambda{ joins(:transfer) }
   scope :approved, lambda{ where("borrow_requests.id not in (?)", rejected | pending | transferred) }
 
