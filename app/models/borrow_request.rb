@@ -33,23 +33,19 @@ class BorrowRequest < ActiveRecord::Base
     return was_successful
   end
 
-  def self.most_recent_pending(thing, user)
-    # A request is considered pending if it's not rejected or transferred.
-    # Or, more directly, if its status is pending, or approved (and awaiting transfer)
+  def self.most_recent_actionable(thing, user)
+    # A request is considered actionable if it's not transferred.
+    # This includes requests that have been rejected, so the requester must
+    # acknowledge and dismiss a rejected request before making a new one for
+    # the same thing.
 
-    # Order requests in descending chronological order as newer requests should be more likely to have pending status.
+    # Order requests in descending chronological order as newer requests should be more likely to have actionable status.
 
-    requests = BorrowRequest.where("user_id = #{user.id} and thing_id = #{thing.id}").order('created_at desc')
-    requests.each do |request|
-        if(request.status == 'pending' || request.status == 'approved')
-            return request
-        end
-    end
-    return nil
+    return user.borrow_requests.actionable.where(:thing_id => thing.id).order('created_at desc').first
   end
 
-  def self.request_pending?(thing, user)
-    return BorrowRequest.most_recent_pending(thing, user) != nil
+  def self.request_actionable?(thing, user)
+    return BorrowRequest.most_recent_actionable(thing, user) != nil
   end
 
   def self.request_valid?(thing, user)
@@ -62,17 +58,17 @@ class BorrowRequest < ActiveRecord::Base
     #   - the user has a stake in the item
     #   - the user already has the Thing
     #   - the thing isn't available in the User's network
-    #   - a pending request already exists
+    #   - an actionable request already exists
 
     user_is_owner = Stake.where("user_id = #{user.id} and thing_id = #{thing.id}").exists?
     user_has_thing = thing.held_by == user.id
-    pending_request_exists = BorrowRequest.request_pending?(thing, user)
+    actionable_request_exists = BorrowRequest.request_actionable?(thing, user)
 
     return !(
         user_is_owner ||
         user_has_thing ||
         !thing.owned_by_friend?(user) ||
-        pending_request_exists
+        actionable_request_exists
     )
   end
 
@@ -110,13 +106,13 @@ class BorrowRequest < ActiveRecord::Base
 
   def status()
     # Returns the overall status of the BorrowRequest, depending on the
-    # statuses of its associated Approvals
+    # statuses of its associated Approvals and Transfers
 
     # Request status is as follows:
     # "rejected" if any of the Approvals are rejected,
     # "pending" if not rejected, and any of the Approvals are pending (this means pending approval),
     # "transferred" if not pending approval or rejected, and a transfer record exists for this request
-    # "approved" otherwise.
+    # "approved" otherwise -- This is notably mutually exclusive from transferred.
 
     statuses = self.approvals.pluck('status')
 
@@ -137,5 +133,10 @@ class BorrowRequest < ActiveRecord::Base
   # These are wrapped in lambdas to avoid cached results.
   scope :rejected, lambda{ joins(:approvals).where("approvals.status = 'rejected'") }
   scope :pending, lambda{ where("borrow_requests.id not in (?)", rejected).joins(:approvals).uniq.where("approvals.status = 'pending'") }
-  scope :approved, lambda{ where("borrow_requests.id not in (?)", rejected | pending) }
+  scope :transferred, lambda{ joins(:transfer) }
+  scope :approved, lambda{ where("borrow_requests.id not in (?)", rejected | pending | transferred) }
+
+  # actionable requests are ones that are not resolved by being transferred.
+  #   Rejected requests are included to be dismissable by the requester
+  scope :actionable, lambda{ where("borrow_requests.id not in (?)", transferred) }
 end
