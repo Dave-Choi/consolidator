@@ -52,6 +52,8 @@ class BorrowRequest < ActiveRecord::Base
 
   scope :rejected, lambda{ joins(:approvals).where("approvals.status = 'rejected'") }
   scope :pending, lambda{ excluding_ids(rejected).joins(:approvals).uniq.where("approvals.status = 'pending'") }
+  # TODO: This is an alternate way to do the query using squeel, which might be faster.  Run a test.
+  # scope :pending, lambda{ where{id.not_in my{rejected}}.joins(:approvals).uniq.where("approvals.status = 'pending'") }
   scope :transferred, lambda{ joins(:transfer) }
   scope :approved, lambda{ excluding_ids(rejected | pending | transferred) }
 
