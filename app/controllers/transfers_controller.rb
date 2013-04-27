@@ -53,8 +53,16 @@ class TransfersController < ApplicationController
       @transfer.thing = Thing.find(params[:transfer][:thing])
     end
 
+    thing = @transfer.thing
+    thing.holder = @transfer.receiver
+
+    success = false
+    ActiveRecord::Base.transaction do
+      success = @transfer.save && thing.save
+    end
+
     respond_to do |format|
-      if @transfer.save
+      if success
         format.html { redirect_to @transfer.thing, notice: 'Transfer was successfully logged.' }
         format.json { render json: @transfer, status: :created, location: @transfer }
       else
