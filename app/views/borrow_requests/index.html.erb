@@ -7,8 +7,17 @@
                 <%= link_to approval.borrower.name, approval.borrower %> wants to borrow your <%= link_to approval.thing.name, approval.thing %>
             </div>
             <div class="approval-prompt btn-group">
-                <%= link_to "<i class=\"icon-thumbs-up\"></i> Approve".html_safe, approval_path(approval, :approval => { :status => "approved"}), :class => "btn", :method => "put" %>
-                <%= link_to "<i class=\"icon-thumbs-down\"></i> Reject".html_safe, approval_path(approval, :approval => { :status => "rejected"}), :class => "btn", :method => "put", data: { confirm: 'Are you sure?'} %>
+                <%= link_to '<i class="icon-thumbs-up"></i> Approve'.html_safe,
+                    approval_path(approval, :approval => { :status => "approved"}),
+                    :class => "btn",
+                    :method => "put" 
+                %>
+                <%= link_to '<i class="icon-thumbs-down"></i> Reject'.html_safe,
+                    approval_path(approval, :approval => { :status => "rejected"}),
+                    :class => "btn",
+                    :method => "put",
+                    data: { confirm: 'Are you sure?'}
+                %>
             </div>
         </li>
     <% end %>
