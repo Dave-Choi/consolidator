@@ -5,14 +5,6 @@
     @things_by_holder.each do |user, things|
 %>
         <h4><%= link_to(user.name, user) %></h4>
-        <ul>
-            <% things.each do |thing| %>
-                <li><%= link_to(thing.name, thing) %>
-                    <% if last_transfer = thing.last_transfer %>
-                        since <%= thing.last_transfer.datetime.to_date %>
-                    <% end %>
-                </li>
-            <% end %>
-        </ul>
+            <%= render things %>
     <% end %>
 <% end %>
