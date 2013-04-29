@@ -7,7 +7,7 @@ module BorrowRequestsHelper
         status = request.status
 
         messages = {
-            'approved' => "You're approved to borrow #{link_to(name, thing)}.",
+            'approved' => "#{request.thing.holder.name} has this right now.",
             'rejected' => "Your request for #{ link_to name, thing } was rejected."
         }
 
