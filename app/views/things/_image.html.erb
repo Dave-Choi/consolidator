@@ -1,0 +1,5 @@
+<% if(thing.image.exists?) %>
+    <div class="pic">
+        <%= link_to image_tag(thing.image(:medium)), thing_path(thing.id) %>
+    </div>
+<% end %>

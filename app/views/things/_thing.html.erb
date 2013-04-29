@@ -1,4 +1,5 @@
 <div class="thingBrief">
+    <%= render :partial => "image", :locals => { :thing => thing } %>
     <div class="info">
         <h4><%= link_to thing.name, thing_path(thing.id) %></h4>
     </div>
