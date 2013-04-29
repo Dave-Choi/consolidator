@@ -1,8 +1,9 @@
 <%= render @thing %>
 
-<div class="details">
-    Added: <%= time_ago_in_words @thing.created_at %> ago
-</div>
+<div class="extra-info">
+    <div class="details">
+        Added: <%= time_ago_in_words @thing.created_at %> ago
+    </div>
 
     <% if(@thing.transfers.exists?) %>
         <div class="history">
