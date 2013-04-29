@@ -10,10 +10,6 @@
     color: gray;
 }
 
-.thumbnail{
-    margin-bottom: 20px;
-}
-
 .btn{
     margin-top: 1em;
 }
@@ -23,7 +19,19 @@
 }
 
 .box{
+    box-shadow: 1px 1px 10px #444;
+    margin: 5px;
+    padding: 5px;
+    line-height: 1.4em;
+    float: left;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 10px #444;
+    width: 214px;
+
     img{
         width: 100%;
+        border-radius: 5px;
     }
 }
