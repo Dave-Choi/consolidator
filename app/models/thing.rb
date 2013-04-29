@@ -7,6 +7,8 @@
 
 class Thing < ActiveRecord::Base
   attr_accessible :name
+  attr_accessible :image
+  has_attached_file :image
 
   # This may not be the best way to handle this.  
   # With an index on transfer datetimes, it's probably enough to just have
@@ -20,6 +22,8 @@ class Thing < ActiveRecord::Base
   has_many :givers, :through => :transfers
   has_many :receivers, :through => :transfers
 
+  validates_attachment :image, content_type: { content_type: ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'] },
+    size: { less_than: 5.megabytes }
 
 # Would be too inefficient to run on every Thing all the time:
   # def held_by()
