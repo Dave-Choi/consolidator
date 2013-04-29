@@ -4,10 +4,12 @@
     Added: <%= time_ago_in_words @thing.created_at %> ago
 </div>
 
-<div class="history">
-    <h4>Transfer History</h4>
-    <%= render @thing.transfers.order('datetime desc') %>
-</div>
+    <% if(@thing.transfers.exists?) %>
+        <div class="history">
+            <h4>Transfer History</h4>
+            <%= render @thing.transfers.order('datetime desc') %>
+        </div>
+    <% end %>
 
 <% if( @thing.owned_by?(current_user) ) %>
     <%= link_to 'Edit', edit_thing_path(@thing) %>
