@@ -66,6 +66,11 @@ class Thing < ActiveRecord::Base
     return !(owner_ids & friend_ids).empty?
   end
 
+  def owned_by?(user)
+    # Returns true if the specified user has a stake in this Thing
+    return self.users.include?(user)
+  end
+
   def last_transfer()
     # Returns the most recent transfer for thing thing.
     return self.transfers.order("datetime desc").limit(1).first
