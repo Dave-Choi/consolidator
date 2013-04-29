@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/rharriso/bower-rails.git
+  revision: cc82ee2226130b7d42b7977609994b4e80b2167b
+  specs:
+    bower-rails (0.3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -141,6 +147,7 @@ PLATFORMS
 DEPENDENCIES
   amistad
   bootstrap-sass (~> 2.2.2.0)
+  bower-rails!
   coffee-rails (~> 3.2.1)
   devise
   font-awesome-rails
