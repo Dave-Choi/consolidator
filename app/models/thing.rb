@@ -8,7 +8,7 @@
 class Thing < ActiveRecord::Base
   attr_accessible :name
   attr_accessible :image
-  has_attached_file :image
+  has_attached_file :image, styles: { medium: "320x240>"}
 
   # This may not be the best way to handle this.  
   # With an index on transfer datetimes, it's probably enough to just have
