@@ -18,6 +18,15 @@
     clear: both;
 }
 
+.form-actions{
+    clear: both;
+}
+
+.form-inputs{
+    float: left;
+    margin-left: 30px;
+}
+
 .box{
     box-shadow: 1px 1px 10px #444;
     margin: 5px;
@@ -34,4 +43,8 @@
         width: 100%;
         border-radius: 5px;
     }
+}
+
+.masonry > p{
+    float: left;
 }
