@@ -8,6 +8,8 @@
 class Thing < ActiveRecord::Base
   attr_accessible :name
   attr_accessible :image
+  attr_accessible :image_remote_url
+
   has_attached_file :image, styles: { medium: "320x240>"}
 
   # This may not be the best way to handle this.  
@@ -74,5 +76,10 @@ class Thing < ActiveRecord::Base
   def last_transfer()
     # Returns the most recent transfer for thing thing.
     return self.transfers.order("datetime desc").limit(1).first
+  end
+
+  def image_remote_url=(url_value)
+    self.image = URI.parse(url_value) unless url_value.blank?
+    super
   end
 end

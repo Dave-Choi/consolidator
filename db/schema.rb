@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130429105932) do
+ActiveRecord::Schema.define(:version => 20130429191248) do
 
   create_table "approvals", :force => true do |t|
     t.integer  "borrow_request_id"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20130429105932) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.string   "image_remote_url"
   end
 
   create_table "transfers", :force => true do |t|
