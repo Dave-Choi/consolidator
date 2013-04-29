@@ -1,5 +1,5 @@
 <h2>Things You're Borrowing</h2>
 
 <div class="masonry">
-    <%= render(@things) || "You don't have any borrowed things." %>
+    <%= render(@things) || "<p>You don't have any borrowed things.</p>".html_safe %>
 </div>

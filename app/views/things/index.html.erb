@@ -1,5 +1,5 @@
 <h2>Your Things</h2>
 
 <div class="masonry">
-    <%= render(@things) || "You don't have any things (in our system)." %>
+    <%= render(@things) || "<p>You don't have any things (in our system).".html_safe %>
 </div>

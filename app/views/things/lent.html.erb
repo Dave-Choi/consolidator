@@ -1,6 +1,6 @@
 <h2>Out on Loan</h2>
 <% if (@things_by_holder.length == 0) %>
-    <%= "You don't have anything out on loan." %>
+    <p>You don't have anything out on loan.</p>
 <% else
     @things_by_holder.each do |user, things|
 %>
