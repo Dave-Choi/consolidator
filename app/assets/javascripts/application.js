@@ -19,6 +19,8 @@
 
 $(function(){
     $('.masonry').imagesLoaded(function(){
-        this.masonry();
+        this.masonry({
+            itemSelector: '.box'
+        });
     });
 });

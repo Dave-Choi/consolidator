@@ -1,4 +1,6 @@
 <h2>Your Things</h2>
 
-<%= render(@things) || "You don't have any things (in our system)." %>
+<div class="masonry">
+    <%= render(@things) || "You don't have any things (in our system)." %>
+</div>
 <%= link_to 'New Thing', new_thing_path %>
