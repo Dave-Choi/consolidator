@@ -34,7 +34,6 @@ gem 'devise'
 gem 'amistad'
 gem 'simple_form'
 gem 'paperclip', '~> 3.0'
-gem 'bower-rails', :git => 'https://github.com/rharriso/bower-rails.git'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
