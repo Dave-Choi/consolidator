@@ -12,15 +12,3 @@
  *= require_tree .
  *= require font-awesome
  */
-
-.icon-thumbs-up{
-    color: green;
-}
-
-.icon-thumbs-down{
-    color: red;
-}
-
-.icon-time{
-    color: gray;
-}
