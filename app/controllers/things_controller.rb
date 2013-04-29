@@ -78,14 +78,13 @@ class ThingsController < ApplicationController
   # POST /things.json
   def create
     #@thing = Thing.new(params[:thing])
-    @thing = current_user.things.build(params[:thing])
+    @thing = current_user.owned_things.build(params[:thing])
     @thing.holder = current_user
 
     respond_to do |format|
       if @thing.save
-        @stake = current_user.stakes.build(
-          :amount => 1
-        )
+        @stake = current_user.stakes.build()
+        @stake.amount = 1
         @stake.thing = @thing
         if(@stake.save)
           format.html { redirect_to @thing, notice: 'Thing was successfully created.' }
