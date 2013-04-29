@@ -3,7 +3,7 @@
     <div class="approvals">
         <ul>
         <% borrow_request.approvals.each do |approval| %>
-            <li><%= render :partial => 'approvals/approval', :locals => {:approval => approval} %></li>
+            <li><%= render  approval %></li>
         <% end %>
         </ul>
     </div>
