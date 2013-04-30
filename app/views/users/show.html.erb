@@ -1,2 +1,4 @@
 <h2><%= @user.name %>'s Things</h2>
-<%= render @user.owned_things %>
+<div class="masonry">
+    <%= render @user.owned_things %>
+</div>
