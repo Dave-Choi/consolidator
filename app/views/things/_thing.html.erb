@@ -38,7 +38,7 @@
         elsif(BorrowRequest.request_actionable?(thing, current_user)) 
             request = BorrowRequest.most_recent_actionable(thing, current_user)
     %>
-            <h5><%= status_icon(request.status) %> <%= request.status %></h5>
+            <h5><%= status_icon(request.status) %> <%= link_to request.status, request %></h5>
             <ul>
                 <% request.approvals.each do |approval| %>
                     <li><%= render(approval) %></li>
