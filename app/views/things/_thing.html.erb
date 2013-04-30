@@ -1,4 +1,4 @@
-<div class="thingBrief box">
+<div class="thing-brief box">
     <%= render :partial => "/things/image", :locals => { :thing => thing } %>
     <div class="info">
         <h4><%= link_to thing.name, thing_path(thing.id) %></h4>
@@ -38,7 +38,7 @@
         elsif(BorrowRequest.request_actionable?(thing, current_user)) 
             request = BorrowRequest.most_recent_actionable(thing, current_user)
     %>
-            Request Status:
+            <h5><%= status_icon(request.status) %> <%= request.status %></h5>
             <ul>
                 <% request.approvals.each do |approval| %>
                     <li><%= render(approval) %></li>
