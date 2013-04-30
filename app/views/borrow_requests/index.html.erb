@@ -26,4 +26,6 @@
 <% end %>
 
 <h2>Your Requests</h2>
-<%= render(@borrow_requests) || "You don't have any outgoing requests." %>
+<div class="masonry">
+    <%= render(@borrow_requests) || "You don't have any outgoing requests." %>
+</div>

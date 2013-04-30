@@ -1,5 +1,8 @@
-<div class="borrowRequest">
-    <h4><%= status_icon(borrow_request.status) %> <%= link_to borrow_request.thing.name, borrow_request %> - <%= borrow_request.status %></h4>
+<div class="borrowRequest box">
+    <%= render :partial => '/things/image', :locals => { :thing => borrow_request.thing } %>
+    <h4><%= link_to borrow_request.thing.name, borrow_request %></h4>
+    <h4><%= status_icon(borrow_request.status) %> <%= borrow_request.status %></h4>
+
     <div class="approvals">
         <ul>
         <% borrow_request.approvals.each do |approval| %>
