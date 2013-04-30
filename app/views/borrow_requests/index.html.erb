@@ -1,8 +1,9 @@
 <% if @pending_approvals.length != 0 %>
     <h2>Awaiting Your Approval</h2>
-    <ul>
+    <div class="masonry">
     <% @pending_approvals.each do |approval| %>
-        <li>
+        <div class="box">
+            <%= render :partial => '/things/image', :locals => { :thing => approval.thing } %>
             <div>
                 <%= link_to approval.borrower.name, approval.borrower %> wants to borrow your <%= link_to approval.thing.name, approval.thing %>
             </div>
@@ -19,9 +20,9 @@
                     data: { confirm: 'Are you sure?'}
                 %>
             </div>
-        </li>
+        </div>
     <% end %>
-    </ul>
+    </div>
 <% end %>
 
 <h2>Your Requests</h2>
