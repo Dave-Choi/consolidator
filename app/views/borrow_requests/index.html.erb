@@ -27,5 +27,5 @@
 
 <h2>Your Requests</h2>
 <div class="masonry">
-    <%= render(@borrow_requests) || "You don't have any outgoing requests." %>
+    <%= render(@borrow_requests) || "<p>You don't have any outgoing requests.</p>".html_safe %>
 </div>
