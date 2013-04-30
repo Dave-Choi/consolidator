@@ -20,18 +20,20 @@
     </div>
 
     <% if(BorrowRequest.request_valid?(thing, current_user)) %>
-        <%= link_to(
-            "Borrow",
-            borrow_requests_path(
-                :borrow_request => {
-                    :thing_id => thing.id,
-                    :user_id => current_user.id
-                },
-                :source_path => ''
-            ),
-            :class => "btn",
-            :method => "post"
-        ) %>
+        <div class="actions">
+            <%= link_to(
+                "Borrow",
+                borrow_requests_path(
+                    :borrow_request => {
+                        :thing_id => thing.id,
+                        :user_id => current_user.id
+                    },
+                    :source_path => ''
+                ),
+                :class => "btn btn-primary",
+                :method => "post"
+            ) %>
+        </div>
     <% 
         elsif(BorrowRequest.request_actionable?(thing, current_user)) 
             request = BorrowRequest.most_recent_actionable(thing, current_user)
