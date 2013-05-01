@@ -1,0 +1,32 @@
+<% approved_by = borrow_request.approved_by
+if(approved_by.exists?)%>
+    <div>
+        <%= status_icon 'approved' %>
+        <%= approved_by.map{| user | 
+            link_to(user.name, user)
+        }.join(', ').html_safe
+        %>
+    </div>
+<% end %>
+
+<% rejected_by = borrow_request.rejected_by
+if(rejected_by.exists?)%>
+    <div>
+        <%= status_icon 'rejected' %>
+        <%= rejected_by.map{| user | 
+            link_to(user.name, user)
+        }.join(', ').html_safe
+        %>
+    </div>
+<% end %>
+
+<% pending_by = borrow_request.pending_by
+if(pending_by.exists?)%>
+    <div>
+        <%= status_icon 'pending' %>
+        <%= pending_by.map{| user | 
+            link_to(user.name, user)
+        }.join(', ').html_safe
+        %>
+    </div>
+<% end %>
