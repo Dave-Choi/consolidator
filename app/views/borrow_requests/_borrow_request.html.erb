@@ -4,11 +4,7 @@
     <h5><%= status_icon(borrow_request.status) %> <%= borrow_request.status %></h5>
 
     <div class="approvals">
-        <ul>
-        <% borrow_request.approvals.each do |approval| %>
-            <li><%= render  approval %></li>
-        <% end %>
-        </ul>
+        <%= render :partial => "approval_list_brief", :locals => { :borrow_request => borrow_request } %>
     </div>
     <div class="actions">
         <%= status_actions(borrow_request) %>

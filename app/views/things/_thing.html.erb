@@ -39,11 +39,7 @@
             request = BorrowRequest.most_recent_actionable(thing, current_user)
     %>
             <h5><%= status_icon(request.status) %> <%= link_to request.status, request %></h5>
-            <ul>
-                <% request.approvals.each do |approval| %>
-                    <li><%= render(approval) %></li>
-                <% end %>
-            </ul>
+            <%= render :partial => "/borrow_requests/approval_list_brief", :locals => { :borrow_request => request } %>
             <div class="actions">
                 <%= status_actions(request) %>
             </div>
