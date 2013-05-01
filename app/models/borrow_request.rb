@@ -61,6 +61,21 @@ class BorrowRequest < ActiveRecord::Base
   #   Rejected requests are included to be dismissable by the requester
   scope :actionable, lambda{ where("borrow_requests.id not in (?)", transferred) }
 
+
+  # The following functions get the associated users for each approval status
+  def approved_by()
+    return User.where('id in (?)', self.approvals.approved.pluck('user_id'))
+  end
+
+  def rejected_by()
+    return User.where('id in (?)', self.approvals.rejected.pluck('user_id'))
+  end
+
+  def pending_by()
+    return User.where('id in (?)', self.approvals.pending.pluck('user_id'))
+  end
+
+
   def create_approvals()
     # Creates one approval for each User with a stake in the Thing
     # to be borrowed
