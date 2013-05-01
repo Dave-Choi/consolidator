@@ -1,12 +1,1 @@
-<div class="borrowRequest box">
-    <%= render :partial => '/things/image', :locals => { :thing => borrow_request.thing } %>
-    <h4><%= link_to borrow_request.thing.name, borrow_request %></h4>
-    <h5><%= status_icon(borrow_request.status) %> <%= borrow_request.status %></h5>
-
-    <div class="approvals">
-        <%= render :partial => "approval_list_brief", :locals => { :borrow_request => borrow_request } %>
-    </div>
-    <div class="actions">
-        <%= status_actions(borrow_request) %>
-    </div>
-</div>
+<%= render borrow_request.thing %>
