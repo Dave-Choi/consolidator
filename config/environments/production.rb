@@ -78,6 +78,8 @@ Consolidator::Application.configure do
       :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
       :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
     },
+    # Without specifying the :url default, there was a permanent redirect error on the S3 service
+    # and without also specifying the :path, there was a Paperclip::Errors::InfiniteInterpolationError
     :path => "/images/:id/:style.:extension",
     :url => ":s3_domain_url"
   }
