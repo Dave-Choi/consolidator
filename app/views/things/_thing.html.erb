@@ -1,22 +1,23 @@
 <div class="thing-brief box">
     <%= render :partial => "/things/image", :locals => { :thing => thing } %>
     <div class="info">
-        <h4><%= link_to thing.name, thing_path(thing.id) %></h4>
-    </div>
-    <div class="holder">
-        <% if(thing.holder != current_user) %>
-            Held by: <%= link_to thing.holder.name, thing.holder %>
-        <% end %>
+        <h4><%= link_to thing.name, thing %></h4>
     </div>
 
     <div class="owners">
-        Owners: 
+        <i class="icon-home"></i> 
         <%= 
             thing.users.map {
                 |user|
-                link_to(user.name, user_path(user.id)) 
+                link_to(user.name, user) 
             }.join(', ').html_safe 
         %>
+    </div>
+
+    <div class="holder">
+        <% if(thing.holder != current_user) %>
+            <i class="icon-map-marker"></i> <%= link_to thing.holder.name, thing.holder %>
+        <% end %>
     </div>
 
     <% if(BorrowRequest.request_valid?(thing, current_user)) %>
