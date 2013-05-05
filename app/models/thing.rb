@@ -20,6 +20,8 @@ class Thing < ActiveRecord::Base
   has_many :stakes
   has_many :users, :through => :stakes
 
+  has_many :borrow_requests
+
   has_many :transfers
   has_many :givers, :through => :transfers
   has_many :receivers, :through => :transfers
