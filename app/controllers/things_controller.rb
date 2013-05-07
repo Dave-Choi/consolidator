@@ -39,7 +39,7 @@ class ThingsController < ApplicationController
 
   # GET /things/available
   def available
-    @things = Thing.available(current_user)
+    @things = Thing.available(current_user).includes(:stakes, :users, :holder)
 
     respond_to do |format|
       format.html # available.html.erb
