@@ -107,26 +107,29 @@ class BorrowRequest < ActiveRecord::Base
 
   def self.request_valid?(thing, user)
     # TODO: This function needs unit testing like nobody's business.
-    #       It also does too much stuff, and should be broken down and
-    #       reorganized so it only checks as much as it needs to, and
-    #       can give useful status messages if someone tries to make a bad request
 
     # A request shouldn't be made if:
-    #   - the user has a stake in the item
     #   - the user already has the Thing
-    #   - the thing isn't available in the User's network
+    if(thing.held_by == user.id)
+      return false
+    end
+
+    #   - the user has a stake in the item
+    if(Stake.where("user_id = #{user.id} and thing_id = #{thing.id}").exists?)
+      return false
+    end
+
     #   - an actionable request already exists
+    if(BorrowRequest.request_actionable?(thing, user))
+      return false
+    end
 
-    user_is_owner = Stake.where("user_id = #{user.id} and thing_id = #{thing.id}").exists?
-    user_has_thing = thing.held_by == user.id
-    actionable_request_exists = BorrowRequest.request_actionable?(thing, user)
+    #   - the thing isn't available in the User's network
+    if(!thing.owned_by_friend?(user))
+      return false
+    end
 
-    return !(
-        user_is_owner ||
-        user_has_thing ||
-        !thing.owned_by_friend?(user) ||
-        actionable_request_exists
-    )
+    return true
   end
 
   def self.init_request(thing, user)
