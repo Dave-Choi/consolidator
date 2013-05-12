@@ -100,7 +100,8 @@ class BorrowRequest < ActiveRecord::Base
   end
 
   def self.request_actionable?(thing, user)
-    return BorrowRequest.most_recent_actionable(thing, user) != nil
+    # return BorrowRequest.most_recent_actionable(thing, user) != nil
+    return user.borrow_requests.actionable.where(:thing_id => thing.id).first != nil
   end
 
   def self.request_valid?(thing, user)
