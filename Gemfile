@@ -39,6 +39,8 @@ gem 'paperclip', '~> 3.0'
 gem 'aws-sdk'
 gem 'coveralls', require: false
 gem 'ruby-prof'
+gem 'ember-rails'
+gem 'ember-source', '1.0.0.rc3.3'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

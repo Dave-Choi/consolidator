@@ -14,6 +14,8 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
+    active_model_serializers (0.8.1)
+      activemodel (>= 3.0)
     activemodel (3.2.12)
       activesupport (= 3.2.12)
       builder (~> 3.0.0)
@@ -35,6 +37,10 @@ GEM
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
+    barber (0.4.2)
+      ember-source
+      execjs
+      handlebars-source
     bcrypt-ruby (3.0.1)
     bootstrap-sass (2.2.2.0)
       sass (~> 3.2)
@@ -65,12 +71,24 @@ GEM
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
+    ember-data-source (0.0.5)
+      ember-source
+    ember-rails (0.12.0)
+      active_model_serializers
+      barber (>= 0.4.1)
+      ember-data-source
+      ember-source (>= 1.0.0.rc2.2)
+      execjs (>= 1.2)
+      railties (>= 3.1)
+    ember-source (1.0.0.rc3.3)
+      handlebars-source (>= 1.0.0.rc3, < 1.0.0.rc4)
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (1.4.0)
       multi_json (~> 1.0)
     font-awesome-rails (3.0.2.0)
       railties (>= 3.1)
+    handlebars-source (1.0.0.rc3)
     hike (1.2.1)
     i18n (0.6.4)
     journey (1.0.4)
@@ -175,6 +193,8 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   coveralls
   devise
+  ember-rails
+  ember-source (= 1.0.0.rc3.3)
   font-awesome-rails
   jquery-rails
   json

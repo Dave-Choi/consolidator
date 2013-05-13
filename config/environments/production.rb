@@ -83,4 +83,6 @@ Consolidator::Application.configure do
     :path => "/images/:id/:style.:extension",
     :url => ":s3_domain_url"
   }
+
+  config.ember.variant = :production
 end

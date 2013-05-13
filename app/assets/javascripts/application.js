@@ -14,6 +14,13 @@
 //= require jquery_ujs
 //= require jquery.masonry.min.js
 //= require bootstrap
+//= require handlebars
+//= require ember
+//= require ember-data
+//= require_self
+//= require consolidator
+Consolidator = Ember.Application.create();
+
 //= require_tree .
 
 
