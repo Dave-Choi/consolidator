@@ -19,7 +19,9 @@
 //= require ember-data
 //= require_self
 //= require consolidator
-Consolidator = Ember.Application.create();
+Consolidator = Ember.Application.create({
+    LOG_TRANSITIONS: true
+});
 
 //= require_tree .
 
