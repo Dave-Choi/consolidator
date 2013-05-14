@@ -1,3 +1,6 @@
-Consolidator.Router.map (match)->
-  # match('/').to('index')
+Consolidator.Router.map(function(){
+    this.resource("things");
+    this.resource("thing", { path: "/thing/:thing_id" }, function(){
 
+    });
+});
