@@ -23,7 +23,9 @@ Consolidator::Application.routes.draw do
 
 
   devise_for :users
+  match 'users/current' => 'users#current'
   match 'users/:id' => 'users#show', as: :user
+  match 'users/' => 'users#index'
   authenticated :user do
     root :to => "borrow_requests#index"
   end
