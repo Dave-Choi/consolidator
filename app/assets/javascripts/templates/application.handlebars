@@ -1,5 +1,9 @@
-<div>This is some crap</div>
+<div>
+    {{#unless Consolidator.currentUserController.isError}}
+        {{Consolidator.currentUserController.name}} logged in
+    {{else}}
+        Error getting current user
+    {{/unless}}
+</div>
 
 {{outlet}}
-
-<div>This is some other crap.</div>

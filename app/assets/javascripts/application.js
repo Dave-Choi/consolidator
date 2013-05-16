@@ -20,7 +20,11 @@
 //= require_self
 //= require consolidator
 Consolidator = Ember.Application.create({
-    LOG_TRANSITIONS: true
+    LOG_TRANSITIONS: true,
+
+    ready: function(){
+        Consolidator.currentUserController.getUser();
+    }
 });
 
 //= require_tree .
