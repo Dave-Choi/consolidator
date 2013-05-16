@@ -1,13 +1,22 @@
 <div class="thing-brief box">
+    <div class="pic">
+        <img {{bindAttr src="image"}} />
+    </div>
+
     <div class="info">
-        <h4>{{ thing.name }}</h4>
+        <h4>{{name}}</h4>
     </div>
 
     <div class="owners">
         <i class="icon-home"></i>
+        {{#each owners}}
+            {{name}}
+        {{/each}}
     </div>
 
     <div class="holder">
-        
+        <i class="icon-map-marker"></i>{{holder.name}}
     </div>
+
+    {{ requestable }}
 </div>
