@@ -1,5 +1,7 @@
 class ThingsController < ApplicationController
   before_filter :authenticate_user!
+
+  respond_to :json, :html
   # GET /things
   # GET /things.json
   def index
@@ -51,11 +53,7 @@ class ThingsController < ApplicationController
   # GET /things/1.json
   def show
     @thing = Thing.viewable(current_user).find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @thing }
-    end
+    respond_with @thing
   end
 
   # GET /things/new
