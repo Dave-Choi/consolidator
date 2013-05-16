@@ -2,12 +2,8 @@ Consolidator.Thing = DS.Model.extend({
     name: DS.attr("string"),
     createdAt: DS.attr("date"),
     updatedAt: DS.attr("date"),
+    image: DS.attr("string"),
 
-    imageFileName: DS.attr("string"),
-    imageContentType: DS.attr("string"),
-    imageFileSize: DS.attr("number"),
-    imageUpdatedAt: DS.attr("date"),
-    imageRemoteURL: DS.attr("string"),
-
-    heldBy: DS.belongsTo("Consolidator.User")
+    holder: DS.belongsTo("Consolidator.User"),
+    owners: DS.hasMany("Consolidator.User")
 });
